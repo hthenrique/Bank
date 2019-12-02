@@ -25,7 +25,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -33,7 +32,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         Button button = root.findViewById(R.id.goBtn);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
