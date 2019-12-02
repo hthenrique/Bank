@@ -3,7 +3,7 @@ package com.example.bank.API.Retrofit;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.bank.Login.LoginSearch;
+import com.example.bank.ui.login.LoginSearch;
 import com.example.bank.Model.LoginModel;
 
 import retrofit2.Call;
@@ -21,7 +21,7 @@ public class ServiceApiImpl implements ServiceAPI {
     }
 
     @Override
-    public void isValidUser(String email, String password, final UserServiceCallBack<LoginModel> callBack) {
+    public void checkUser(String email, String password, final UserServiceCallBack<LoginSearch> callBack) {
         Call<LoginSearch> callUserLogin = mRetrofit.isValidUser(email.trim(), password,"json");
         callUserLogin.enqueue(new Callback<LoginSearch>() {
             @Override

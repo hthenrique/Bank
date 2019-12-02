@@ -1,4 +1,4 @@
-package com.example.bank.API.Retrofit;
+package com.example.bank.ui.login;
 
 import com.google.gson.annotations.SerializedName;
 

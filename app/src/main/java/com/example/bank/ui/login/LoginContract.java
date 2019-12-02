@@ -1,4 +1,4 @@
-package com.example.bank.Login;
+package com.example.bank.ui.login;
 
 public interface LoginContract {
 

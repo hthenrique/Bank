@@ -1,6 +1,7 @@
 package com.example.bank.API.Retrofit;
 
-import com.example.bank.Login.LoginSearch;
+import com.example.bank.ui.login.LoginResponse;
+import com.example.bank.ui.login.LoginSearch;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
