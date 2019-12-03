@@ -15,8 +15,7 @@ public interface RetrofitEndPoint {
     @POST("/api/check-login")
     Call<LoginSearch> isValidUser
             (@Field("email") String email,
-             @Field("password") String password,
-             @Field("format") String format);
+             @Field("password") String password);
 
     //User Data
     @FormUrlEncoded

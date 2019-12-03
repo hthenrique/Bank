@@ -22,7 +22,7 @@ public class ServiceApiImpl implements ServiceAPI {
 
     @Override
     public void checkUser(String email, String password, final UserServiceCallBack<LoginSearch> callBack) {
-        Call<LoginSearch> callUserLogin = mRetrofit.isValidUser(email.trim(), password,"json");
+        Call<LoginSearch> callUserLogin = mRetrofit.isValidUser(email, password);
         callUserLogin.enqueue(new Callback<LoginSearch>() {
             @Override
             public void onResponse(Call<LoginSearch> call, Response<LoginSearch> response) {
@@ -32,7 +32,7 @@ public class ServiceApiImpl implements ServiceAPI {
                         callBack.onLoaded(loginSearch);
                     }
                 }catch (Exception e){
-                    Toast.makeText(context, "Verify user and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Check User Fail", Toast.LENGTH_SHORT).show();
                 }
             }
 

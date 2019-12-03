@@ -9,6 +9,9 @@ public class LoginModel {
     @SerializedName("password")
     public String password;
 
+    @SerializedName("status")
+    public String status;
+
     public LoginModel(){
     }
 

@@ -1,21 +1,34 @@
 package com.example.bank.ui.login;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.bank.API.Retrofit.ServiceAPI;
 import com.example.bank.API.Retrofit.ServiceApiImpl;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginPresenter implements LoginContract.UserActionsListener {
     private final ServiceAPI mApi;
-    private final LoginContract.View mloginView;
+    private final LoginContract.View mLoginView;
     Context context;
+
+    private static final String TAG = "LoginPresenter";
 
     public LoginPresenter(LoginContract.View loginView){
         mApi = new ServiceApiImpl(context);
-        mloginView = loginView;
+        mLoginView = loginView;
     }
 
     @Override
-    public void loadUser(String email, String password) {
+    public void loadUser(String emailUser, String passwordUser) {
+        if (emailUser == null && passwordUser == null){
+            Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show();
+        }else {
+            mApi.checkUser(emailUser, passwordUser, loginSearch -> {
+                Log.e(TAG, "loadUser: " + loginSearch);
+                mLoginView.showStatus(loginSearch.status);
+            });
+        }
     }
 }
