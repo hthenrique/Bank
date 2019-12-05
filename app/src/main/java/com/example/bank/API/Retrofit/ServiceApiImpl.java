@@ -3,8 +3,10 @@ package com.example.bank.API.Retrofit;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.bank.Model.GetUserModel;
 import com.example.bank.ui.login.LoginSearch;
-import com.example.bank.Model.LoginModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,5 +44,27 @@ public class ServiceApiImpl implements ServiceAPI {
             }
         });
 
+    }
+
+    @Override
+    public void getUser(String email, final UserServiceCallBack<GetUserModel> callBack) {
+        Call<GetUserModel> callUser = mRetrofit.getUser(email);
+        callUser.enqueue(new Callback<GetUserModel>() {
+            @Override
+            public void onResponse(@NotNull Call<GetUserModel> call, @NotNull Response<GetUserModel> response) {
+                try {
+                    if (response.code()==200){
+                        GetUserModel getUserModel = response.body();
+                        callBack.onLoaded(getUserModel);
+                    }
+                }catch (Exception e){
+                    Toast.makeText(context, "Get User Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(@NotNull Call<GetUserModel> call, Throwable t) {
+                Toast.makeText(context, "Get Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -7,20 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.bank.ui.home.HomeActivity;
+import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
+import com.example.bank.ui.home.HomeActivity;
+import com.example.bank.ui.home.HomeContract;
 import com.google.android.material.snackbar.Snackbar;
 
 public class LoginFragment extends Fragment implements LoginContract.View {
 
-    private LoginContract.UserActionsListener mActionsListener;
+    LoginContract.UserActionsListener mActionsListener;
     private String emailUser;
     private String passwordUser;
 
@@ -43,10 +43,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_login, container, false);
 
-        final EditText email = root.findViewById(R.id.username);
+        EditText email = root.findViewById(R.id.username);
         emailUser = email.getText().toString();
 
-        final EditText password = root.findViewById(R.id.password);
+        EditText password = root.findViewById(R.id.password);
         passwordUser = password.getText().toString();
 
         Button button = root.findViewById(R.id.goBtn);
@@ -61,27 +61,31 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        if (mActionsListener == null){
             Snackbar.make(getView(), "Welcome", Snackbar.LENGTH_LONG).show();
-        }else{
-            mActionsListener.loadUser(emailUser,passwordUser);
-        }
     }
-
 
     @Override
     public boolean showStatus(boolean status) {
-
-        if (status == false){
+        if (!status){
             Snackbar.make(root, "Verify User and Password", Snackbar.LENGTH_LONG).show();
         }
-
-        if (status == true){
+        if (status){
             Intent intent = new Intent(getActivity().getBaseContext(), HomeActivity.class);
+            intent.putExtra("email", emailUser);
             startActivity(intent);
-            getActivity().finish();
+            //getActivity().finish();
         }
 
         return status;
+    }
+
+    @Override
+    public void showDetailsUi(GetUserModel user) {
+        Intent intent = new Intent(getActivity().getBaseContext(), HomeActivity.class);
+        intent.putExtra("email", user.email);
+        intent.putExtra("id", user.id);
+        intent.putExtra("name", user.name);
+        intent.putExtra("profile", user.profile);
+        intent.putExtra("balance", user.balance);
     }
 }

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.bank.API.Retrofit.ServiceAPI;
 import com.example.bank.API.Retrofit.ServiceApiImpl;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.bank.Model.GetUserModel;
 
 public class LoginPresenter implements LoginContract.UserActionsListener {
     private final ServiceAPI mApi;
@@ -19,6 +21,11 @@ public class LoginPresenter implements LoginContract.UserActionsListener {
         mApi = new ServiceApiImpl(context);
         mLoginView = loginView;
     }
+
+    /*@Override
+    public void showDetails(@NonNull GetUserModel userModel) {
+        mApi.getUser(userModel.email, user -> mLoginView.showDetailsUi(userModel));
+    }*/
 
     @Override
     public void loadUser(String emailUser, String passwordUser) {
