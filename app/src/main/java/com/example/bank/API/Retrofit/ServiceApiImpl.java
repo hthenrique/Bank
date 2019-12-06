@@ -3,10 +3,13 @@ package com.example.bank.API.Retrofit;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.bank.Model.ExtractModel;
 import com.example.bank.Model.GetUserModel;
-import com.example.bank.ui.login.LoginSearch;
+import com.example.bank.Model.LoginSearch;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,6 +67,29 @@ public class ServiceApiImpl implements ServiceAPI {
             @Override
             public void onFailure(@NotNull Call<GetUserModel> call, Throwable t) {
                 Toast.makeText(context, "Get Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void getExtract(String id_user, UserServiceCallBack<List<ExtractModel>> callBack) {
+        Call<List<ExtractModel>> callExtract = mRetrofit.getBankStatement(id_user);
+        callExtract.enqueue(new Callback<List<ExtractModel>>() {
+            @Override
+            public void onResponse(Call<List<ExtractModel>> call, Response<List<ExtractModel>> response) {
+                try {
+                    if (response.code()==200){
+                        List<ExtractModel> extractModel = response.body();
+                        callBack.onLoaded(extractModel);
+                    }
+                }catch (Exception e){
+                    Toast.makeText(context, "Get Extract Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ExtractModel>> call, Throwable t) {
+                Toast.makeText(context, "Get Extract Response Fail", Toast.LENGTH_SHORT).show();
             }
         });
     }

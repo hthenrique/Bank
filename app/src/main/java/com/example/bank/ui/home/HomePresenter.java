@@ -22,7 +22,9 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadUserDetails(String emailUser) {
-        //mApi.getUser(emailUser, mDetailsView::showDetails);
-        mApi.getUser(emailUser, mDetailsView::showDetails);
+        mApi.getUser(emailUser, userModel -> {
+                    mDetailsView.setId(userModel.id);
+                    mDetailsView.showDetails(userModel);
+                });
     }
 }

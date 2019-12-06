@@ -73,7 +73,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             Intent intent = new Intent(getActivity().getBaseContext(), HomeActivity.class);
             intent.putExtra("email", emailUser);
             startActivity(intent);
-            //getActivity().finish();
         }
 
         return status;
@@ -87,5 +86,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         intent.putExtra("name", user.name);
         intent.putExtra("profile", user.profile);
         intent.putExtra("balance", user.balance);
+        startActivity(intent);
     }
 }

@@ -1,7 +1,10 @@
 package com.example.bank.API.Retrofit;
 
+import com.example.bank.Model.ExtractModel;
 import com.example.bank.Model.GetUserModel;
-import com.example.bank.ui.login.LoginSearch;
+import com.example.bank.Model.LoginSearch;
+
+import java.util.List;
 
 import retrofit2.http.POST;
 
@@ -15,5 +18,7 @@ public interface ServiceAPI {
 
     @POST("/api/get-user")
     void getUser(String email, UserServiceCallBack<GetUserModel> callBack);
+
+    void getExtract(String id_user, UserServiceCallBack<List<ExtractModel>> callBack);
 
 }

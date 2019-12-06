@@ -1,14 +1,11 @@
 package com.example.bank.ui.home;
 
-import androidx.annotation.NonNull;
-
 import com.example.bank.Model.GetUserModel;
 
 public interface HomeContract {
 
     interface View{
-        //void showDetails(GetUserModel getUserModel);
-
+        void setId(String id);
         void showDetails(GetUserModel userModel);
     }
 

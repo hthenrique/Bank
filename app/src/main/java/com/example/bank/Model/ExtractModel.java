@@ -15,5 +15,6 @@ public class ExtractModel {
     @SerializedName("data")
     public String data;
 
-    public ExtractModel(){}
+    public ExtractModel(){
+    }
 }

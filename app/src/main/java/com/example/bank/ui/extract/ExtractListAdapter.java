@@ -12,16 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bank.Model.ExtractModel;
 import com.example.bank.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.ViewHolder> {
 
-    private List<ExtractModel> mExtract;
-    private ItemListener mItemListener;
+    private ArrayList<List<ExtractModel>> mExtract;
 
-    public ExtractListAdapter(List<ExtractModel> extract, ItemListener itemListener){
+    ExtractListAdapter(ArrayList<List<ExtractModel>> extract){
         setList(extract);
-        mItemListener = itemListener;
+    }
+
+    private void setList(ArrayList<List<ExtractModel>> extract) {
+        mExtract = extract;
     }
 
     @NonNull
@@ -30,12 +33,12 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View noteView = inflater.inflate(R.layout.item_extract, parent, false);
-        return new ViewHolder(noteView, mItemListener);
+        return new ViewHolder(noteView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExtractListAdapter.ViewHolder holder, int position) {
-        ExtractModel extract = mExtract.get(position);
+        ExtractModel extract = (ExtractModel) mExtract.get(position);
         holder.id_transfer.setText(extract.id);
         holder.id_user_to.setText(extract.id_to);
         holder.id_user_from.setText(extract.id_from);
@@ -43,19 +46,21 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
         holder.date.setText(extract.data);
     }
 
+    void replaceData(ArrayList<List<ExtractModel>> extract){
+        setList(extract);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return 0;
     }
 
-    private void setList(List<ExtractModel> notes) {
+    /*private void setList(List<ExtractModel> notes) {
         mExtract = notes;
-    }
+    }*/
 
-    interface ItemListener{
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView id_transfer;
         TextView id_user_to;
@@ -64,10 +69,8 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
         TextView date;
         View view;
 
-        ViewHolder(@NonNull View itemView, ItemListener listener) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            mItemListener = listener;
             id_transfer = itemView.findViewById(R.id.idTransfer);
             id_user_to = itemView.findViewById(R.id.idTo);
             id_user_from = itemView.findViewById(R.id.idFrom);

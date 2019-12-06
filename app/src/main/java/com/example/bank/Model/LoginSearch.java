@@ -1,4 +1,4 @@
-package com.example.bank.ui.login;
+package com.example.bank.Model;
 
 import com.google.gson.annotations.SerializedName;
 
