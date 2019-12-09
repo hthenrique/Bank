@@ -22,19 +22,14 @@ public class LoginPresenter implements LoginContract.UserActionsListener {
         mLoginView = loginView;
     }
 
-    /*@Override
-    public void showDetails(@NonNull GetUserModel userModel) {
-        mApi.getUser(userModel.email, user -> mLoginView.showDetailsUi(userModel));
-    }*/
-
     @Override
     public void loadUser(String emailUser, String passwordUser) {
         if (emailUser == null && passwordUser == null){
             Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show();
         }else {
-            mApi.checkUser(emailUser, passwordUser, loginSearch -> {
-                Log.e(TAG, "loadUser: " + loginSearch);
-                mLoginView.showStatus(loginSearch.status);
+            mApi.checkUser(emailUser, passwordUser, loginStatus -> {
+                Log.e(TAG, "loadUser: " + loginStatus);
+                mLoginView.showStatus(loginStatus.status);
             });
         }
     }

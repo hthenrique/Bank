@@ -18,8 +18,6 @@ public class HomePresenter implements HomeContract.Presenter {
         mDetailsView = detailsView;
     }
 
-
-
     @Override
     public void loadUserDetails(String emailUser) {
         mApi.getUser(emailUser, userModel -> {

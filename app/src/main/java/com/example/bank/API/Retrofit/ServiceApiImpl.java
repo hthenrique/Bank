@@ -5,7 +5,8 @@ import android.widget.Toast;
 
 import com.example.bank.Model.ExtractModel;
 import com.example.bank.Model.GetUserModel;
-import com.example.bank.Model.LoginSearch;
+import com.example.bank.Model.LoginStatus;
+import com.example.bank.Model.TransferStatus;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,15 +27,15 @@ public class ServiceApiImpl implements ServiceAPI {
     }
 
     @Override
-    public void checkUser(String email, String password, final UserServiceCallBack<LoginSearch> callBack) {
-        Call<LoginSearch> callUserLogin = mRetrofit.isValidUser(email, password);
-        callUserLogin.enqueue(new Callback<LoginSearch>() {
+    public void checkUser(String email, String password, final UserServiceCallBack<LoginStatus> callBack) {
+        Call<LoginStatus> callUserLogin = mRetrofit.isValidUser(email, password);
+        callUserLogin.enqueue(new Callback<LoginStatus>() {
             @Override
-            public void onResponse(Call<LoginSearch> call, Response<LoginSearch> response) {
+            public void onResponse(Call<LoginStatus> call, Response<LoginStatus> response) {
                 try {
                     if (response.code()==200){
-                        LoginSearch loginSearch = response.body();
-                        callBack.onLoaded(loginSearch);
+                        LoginStatus loginStatus = response.body();
+                        callBack.onLoaded(loginStatus);
                     }
                 }catch (Exception e){
                     Toast.makeText(context, "Check User Fail", Toast.LENGTH_SHORT).show();
@@ -42,7 +43,7 @@ public class ServiceApiImpl implements ServiceAPI {
             }
 
             @Override
-            public void onFailure(Call<LoginSearch> call, Throwable t) {
+            public void onFailure(Call<LoginStatus> call, Throwable t) {
                 Toast.makeText(context, "Login Fail", Toast.LENGTH_SHORT).show();
             }
         });
@@ -90,6 +91,30 @@ public class ServiceApiImpl implements ServiceAPI {
             @Override
             public void onFailure(Call<List<ExtractModel>> call, Throwable t) {
                 Toast.makeText(context, "Get Extract Response Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void doTransfer(String id_user_from, String id_user_to, String value,
+                           final UserServiceCallBack<TransferStatus> callBack) {
+        Call<TransferStatus> callUserTransfer = mRetrofit.isValidTransfer(id_user_from,id_user_to,value);
+        callUserTransfer.enqueue(new Callback<TransferStatus>() {
+            @Override
+            public void onResponse(Call<TransferStatus> call, Response<TransferStatus> response) {
+                try {
+                    if (response.code()==200){
+                        TransferStatus transferStatus = response.body();
+                        callBack.onLoaded(transferStatus);
+                    }
+                }catch (Exception e){
+                    Toast.makeText(context, "Check user to transfer fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TransferStatus> call, Throwable t) {
+                Toast.makeText(context, "Transfer status fail", Toast.LENGTH_SHORT).show();
             }
         });
     }

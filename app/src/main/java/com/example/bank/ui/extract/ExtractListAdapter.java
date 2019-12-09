@@ -22,7 +22,6 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
         setList(extract);
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,10 +54,6 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
     public int getItemCount() {
         return mExtract.size();
     }
-
-    /*private void setList(List<ExtractModel> notes) {
-        mExtract = notes;
-    }*/
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

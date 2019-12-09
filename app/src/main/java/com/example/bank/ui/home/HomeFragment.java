@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     TextView nameUser;
     TextView emailUser;
     TextView balance;
+    String email;
     String id_user;
 
     private HomeContract.Presenter presenter;
@@ -65,7 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        String email = getActivity().getIntent().getExtras().getString("email");
+        email = getActivity().getIntent().getExtras().getString("email");
         balance = root.findViewById(R.id.totalBalance);
 
         presenter.loadUserDetails(email);
@@ -99,8 +100,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_Transfer:
-                Intent home = new Intent(getActivity(), TransferActivity.class);
-                startActivity(home);
+                Intent transfer = new Intent(getActivity(), TransferActivity.class);
+                transfer.putExtra("id",id_user);
+                transfer.putExtra("email",email);
+                startActivity(transfer);
                 break;
             case R.id.nav_Extract:
                 Intent extract = new Intent(getActivity(), ExtractActivity.class);
@@ -129,6 +132,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
                 break;
             case R.id.transferButton:
                 Intent transfer = new Intent(getActivity(), TransferActivity.class);
+                transfer.putExtra("id",id_user);
                 startActivity(transfer);
                 break;
             case  R.id.exitButton:
