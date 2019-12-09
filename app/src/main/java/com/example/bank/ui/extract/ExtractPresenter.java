@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.bank.API.Retrofit.ServiceAPI;
 import com.example.bank.API.Retrofit.ServiceApiImpl;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.bank.Model.ExtractModel;
 
 public class ExtractPresenter implements ExtractContract.Presenter {
     private final ServiceAPI mApi;

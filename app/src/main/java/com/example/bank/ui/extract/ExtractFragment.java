@@ -33,7 +33,7 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
     @Override
     public void onCreate(@NonNull Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-            mListAdapter = new ExtractListAdapter(new ArrayList<List<ExtractModel>>(0));
+            mListAdapter = new ExtractListAdapter(new ArrayList<>(0));
             mActionsListener = new ExtractPresenter(this, getContext());
             setHasOptionsMenu(true);
     }
@@ -72,7 +72,7 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
     }
 
     @Override
-    public void showExtract(ArrayList<List<ExtractModel>> extract) {
+    public void showExtract(List<ExtractModel> extract) {
         mListAdapter.replaceData(extract);
     }
 }

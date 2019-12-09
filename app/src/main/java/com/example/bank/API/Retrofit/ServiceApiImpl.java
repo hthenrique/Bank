@@ -72,7 +72,7 @@ public class ServiceApiImpl implements ServiceAPI {
     }
 
     @Override
-    public void getExtract(String id_user, UserServiceCallBack<List<ExtractModel>> callBack) {
+    public void getExtract(String id_user, final UserServiceCallBack<List<ExtractModel>> callBack) {
         Call<List<ExtractModel>> callExtract = mRetrofit.getBankStatement(id_user);
         callExtract.enqueue(new Callback<List<ExtractModel>>() {
             @Override

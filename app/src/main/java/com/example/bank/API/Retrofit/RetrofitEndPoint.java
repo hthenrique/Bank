@@ -29,6 +29,6 @@ public interface RetrofitEndPoint {
     //Extract
     @FormUrlEncoded
     @POST("./api/get-bank-statement")
-    Call<List<ExtractModel>> getBankStatement
+    Call <List<ExtractModel>> getBankStatement
             (@Field("id_user") String id_user);
 }

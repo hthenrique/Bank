@@ -12,20 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bank.Model.ExtractModel;
 import com.example.bank.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.ViewHolder> {
 
-    private ArrayList<List<ExtractModel>> mExtract;
+    private List<ExtractModel> mExtract;
 
-    ExtractListAdapter(ArrayList<List<ExtractModel>> extract){
+    public ExtractListAdapter(List<ExtractModel> extract){
         setList(extract);
     }
 
-    private void setList(ArrayList<List<ExtractModel>> extract) {
-        mExtract = extract;
-    }
 
     @NonNull
     @Override
@@ -38,7 +34,7 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ExtractListAdapter.ViewHolder holder, int position) {
-        ExtractModel extract = (ExtractModel) mExtract.get(position);
+        ExtractModel extract = mExtract.get(position);
         holder.id_transfer.setText(extract.id);
         holder.id_user_to.setText(extract.id_to);
         holder.id_user_from.setText(extract.id_from);
@@ -46,14 +42,18 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
         holder.date.setText(extract.data);
     }
 
-    void replaceData(ArrayList<List<ExtractModel>> extract){
+    void replaceData(List<ExtractModel> extract){
         setList(extract);
         notifyDataSetChanged();
     }
 
+    private void setList(List<ExtractModel> extract) {
+        mExtract = extract;
+    }
+
     @Override
     public int getItemCount() {
-        return 0;
+        return mExtract.size();
     }
 
     /*private void setList(List<ExtractModel> notes) {
