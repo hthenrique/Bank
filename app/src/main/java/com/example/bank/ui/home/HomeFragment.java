@@ -10,41 +10,39 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.bank.Model.ExtractModel;
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
 import com.example.bank.ui.extract.ExtractActivity;
-import com.example.bank.ui.extract.ExtractContract;
-import com.example.bank.ui.extract.ExtractFragment;
 import com.example.bank.ui.login.LoginActivity;
-import com.example.bank.ui.login.LoginContract;
 import com.example.bank.ui.transfer.TransferActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class HomeFragment extends Fragment implements View.OnClickListener, HomeContract.View, NavigationView.OnNavigationItemSelectedListener {
 
-    ImageView profilePic;
-    TextView nameUser;
-    TextView emailUser;
-    TextView balance;
-    String email;
-    String id_user;
+    private ImageView profilePic;
+    private TextView nameUser;
+    private TextView emailUser;
+    private TextView balance;
+    private String email;
+    private String id_user;
+
 
     private HomeContract.Presenter presenter;
 
     public HomeFragment(){}
 
-    public static Fragment newInstance(){
+    static Fragment newInstance(){
         return new HomeFragment();
     }
 
@@ -53,12 +51,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        NavigationView navigationView = Objects.requireNonNull(getActivity()).findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         nameUser = headerView.findViewById(R.id.nameUser);
         emailUser = headerView.findViewById(R.id.emailUser);
         profilePic = headerView.findViewById(R.id.profileView);
-
         presenter = new HomePresenter(this, getContext());
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -66,9 +63,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        email = getActivity().getIntent().getExtras().getString("email");
+        email = Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getString("email");
         balance = root.findViewById(R.id.totalBalance);
-
         presenter.loadUserDetails(email);
 
         Button extractButton = root.findViewById(R.id.extractButton);
@@ -77,7 +73,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         transferButton.setOnClickListener(this);
         Button exitButton = root.findViewById(R.id.exitButton);
         exitButton.setOnClickListener(this);
+
+        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.SwipeRefresh);
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.colorAccent),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.loadUserDetails(email));
         return root;
+    }
+
+    @Override
+    public void setLoading(boolean isActive) {
+        if (getView() == null){
+            return;
+        }
+        final SwipeRefreshLayout srl = getView().findViewById(R.id.SwipeRefresh);
+        srl.post(() -> srl.setRefreshing(isActive));
     }
 
     @Override
@@ -113,11 +126,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
             case R.id.menu_exit:
                 Intent exit = new Intent(getActivity(), LoginActivity.class);
                 startActivity(exit);
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
                 break;
             default: break;
         }
-        DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = Objects.requireNonNull(getActivity()).findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -133,12 +146,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
             case R.id.transferButton:
                 Intent transfer = new Intent(getActivity(), TransferActivity.class);
                 transfer.putExtra("id",id_user);
+                transfer.putExtra("email",email);
                 startActivity(transfer);
                 break;
             case  R.id.exitButton:
                 Intent exit = new Intent(getActivity(), LoginActivity.class);
                 startActivity(exit);
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
                 break;
         }
     }

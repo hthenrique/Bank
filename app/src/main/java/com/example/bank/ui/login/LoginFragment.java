@@ -15,62 +15,65 @@ import androidx.fragment.app.Fragment;
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
 import com.example.bank.ui.home.HomeActivity;
-import com.example.bank.ui.home.HomeContract;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Objects;
 
 public class LoginFragment extends Fragment implements LoginContract.View {
 
-    LoginContract.UserActionsListener mActionsListener;
+    private LoginContract.UserActionsListener mActionsListener;
     private String emailUser;
+    private EditText email;
     private String passwordUser;
-
-    View root;
+    private EditText password;
+    private Button button;
 
     public LoginFragment(){}
 
-    public static Fragment newInstance(){
+    static Fragment newInstance(){
         return new LoginFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActionsListener = new LoginPresenter(this);
+        mActionsListener = new LoginPresenter(this,getContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_login, container, false);
-
-        EditText email = root.findViewById(R.id.username);
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        email = root.findViewById(R.id.username);
         emailUser = email.getText().toString();
-
-        EditText password = root.findViewById(R.id.password);
+        password = root.findViewById(R.id.password);
         passwordUser = password.getText().toString();
-
-        Button button = root.findViewById(R.id.goBtn);
-        button.setOnClickListener(v -> {
-            emailUser = email.getText().toString();
-            passwordUser = password.getText().toString();
-            mActionsListener.loadUser(emailUser,passwordUser);
-        });
+        button = root.findViewById(R.id.goBtn);
+        buttonClick();
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-            Snackbar.make(getView(), "Welcome", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(Objects.requireNonNull(getView()), "Welcome", Snackbar.LENGTH_LONG).show();
+    }
+
+    private void buttonClick(){
+        button.setOnClickListener(v -> {
+            emailUser = email.getText().toString();
+            passwordUser = password.getText().toString();
+            mActionsListener.loadUser(emailUser,passwordUser);
+        });
     }
 
     @Override
     public boolean showStatus(boolean status) {
         if (!status){
-            Snackbar.make(root, "Verify User and Password", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(Objects.requireNonNull(getView()), "Verify User and Password", Snackbar.LENGTH_LONG).show();
         }
         if (status){
-            Intent intent = new Intent(getActivity().getBaseContext(), HomeActivity.class);
+            Intent intent = new Intent(Objects.requireNonNull(getActivity()).getBaseContext(), HomeActivity.class);
             intent.putExtra("email", emailUser);
             startActivity(intent);
         }
@@ -80,7 +83,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void showDetailsUi(GetUserModel user) {
-        Intent intent = new Intent(getActivity().getBaseContext(), HomeActivity.class);
+        Intent intent = new Intent(Objects.requireNonNull(getActivity()).getBaseContext(), HomeActivity.class);
         intent.putExtra("email", user.email);
         intent.putExtra("id", user.id);
         intent.putExtra("name", user.name);

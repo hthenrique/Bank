@@ -25,7 +25,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/EditTextColorPrimary"
         android:ems="10"
-        android:hint="Enter destination email"
+        android:hint="@string/enter_destination_email"
         android:inputType="textPersonName" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +45,7 @@
             android:ems="10"
             android:gravity="right"
             android:hint="0"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="parent"

@@ -4,21 +4,19 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.example.bank.API.Retrofit.ServiceAPI;
 import com.example.bank.API.Retrofit.ServiceApiImpl;
-import com.example.bank.Model.GetUserModel;
 
 public class LoginPresenter implements LoginContract.UserActionsListener {
     private final ServiceAPI mApi;
     private final LoginContract.View mLoginView;
-    Context context;
+    private Context context;
 
     private static final String TAG = "LoginPresenter";
 
-    public LoginPresenter(LoginContract.View loginView){
-        mApi = new ServiceApiImpl(context);
+    LoginPresenter(LoginContract.View loginView, Context context){
+        this.context = context;
+        mApi = new ServiceApiImpl(this.context);
         mLoginView = loginView;
     }
 

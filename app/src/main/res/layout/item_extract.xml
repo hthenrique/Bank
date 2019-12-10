@@ -3,8 +3,8 @@
     android:id="@+id/itemExtract"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="3dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:background="@color/colorPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -14,32 +14,6 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/idTransfer2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="Tranfer:"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/idTransfer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="idTranfer"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/colorSecondary"
-            android:orientation="horizontal"></LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,6 +98,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/itemLayout"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="5dp"

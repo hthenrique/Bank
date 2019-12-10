@@ -17,7 +17,6 @@ import com.example.bank.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
     HomeFragment homeFragment;
 
@@ -43,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
             emailUser = extras.getString("email");
         }
 
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_Transfer, R.id.nav_Extract)
                 .setDrawerLayout(drawer)
@@ -59,10 +59,10 @@ public class HomeActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void initFragment(Fragment loginFragment){
+    private void initFragment(Fragment homeFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.includeMain, loginFragment);
+        transaction.add(R.id.includeMain, homeFragment);
         transaction.commit();
     }
 }

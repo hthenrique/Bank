@@ -31,7 +31,7 @@ public class ServiceApiImpl implements ServiceAPI {
         Call<LoginStatus> callUserLogin = mRetrofit.isValidUser(email, password);
         callUserLogin.enqueue(new Callback<LoginStatus>() {
             @Override
-            public void onResponse(Call<LoginStatus> call, Response<LoginStatus> response) {
+            public void onResponse(@NotNull Call<LoginStatus> call, @NotNull Response<LoginStatus> response) {
                 try {
                     if (response.code()==200){
                         LoginStatus loginStatus = response.body();
@@ -43,8 +43,8 @@ public class ServiceApiImpl implements ServiceAPI {
             }
 
             @Override
-            public void onFailure(Call<LoginStatus> call, Throwable t) {
-                Toast.makeText(context, "Login Fail", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<LoginStatus> call, @NotNull Throwable t) {
+                Toast.makeText(context, "Check User Fail", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -66,8 +66,8 @@ public class ServiceApiImpl implements ServiceAPI {
                 }
             }
             @Override
-            public void onFailure(@NotNull Call<GetUserModel> call, Throwable t) {
-                Toast.makeText(context, "Get Fail", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<GetUserModel> call, @NotNull Throwable t) {
+                Toast.makeText(context, "Get User Fail", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -77,7 +77,7 @@ public class ServiceApiImpl implements ServiceAPI {
         Call<List<ExtractModel>> callExtract = mRetrofit.getBankStatement(id_user);
         callExtract.enqueue(new Callback<List<ExtractModel>>() {
             @Override
-            public void onResponse(Call<List<ExtractModel>> call, Response<List<ExtractModel>> response) {
+            public void onResponse(@NotNull Call<List<ExtractModel>> call, @NotNull Response<List<ExtractModel>> response) {
                 try {
                     if (response.code()==200){
                         List<ExtractModel> extractModel = response.body();
@@ -89,7 +89,7 @@ public class ServiceApiImpl implements ServiceAPI {
             }
 
             @Override
-            public void onFailure(Call<List<ExtractModel>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<ExtractModel>> call, @NotNull Throwable t) {
                 Toast.makeText(context, "Get Extract Response Fail", Toast.LENGTH_SHORT).show();
             }
         });
@@ -101,7 +101,7 @@ public class ServiceApiImpl implements ServiceAPI {
         Call<TransferStatus> callUserTransfer = mRetrofit.isValidTransfer(id_user_from,id_user_to,value);
         callUserTransfer.enqueue(new Callback<TransferStatus>() {
             @Override
-            public void onResponse(Call<TransferStatus> call, Response<TransferStatus> response) {
+            public void onResponse(@NotNull Call<TransferStatus> call, @NotNull Response<TransferStatus> response) {
                 try {
                     if (response.code()==200){
                         TransferStatus transferStatus = response.body();
@@ -113,8 +113,7 @@ public class ServiceApiImpl implements ServiceAPI {
             }
 
             @Override
-            public void onFailure(Call<TransferStatus> call, Throwable t) {
-                Toast.makeText(context, "Transfer status fail", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<TransferStatus> call, @NotNull Throwable t) {
             }
         });
     }

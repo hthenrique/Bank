@@ -18,7 +18,7 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
 
     private List<ExtractModel> mExtract;
 
-    public ExtractListAdapter(List<ExtractModel> extract){
+    ExtractListAdapter(List<ExtractModel> extract){
         setList(extract);
     }
 
@@ -34,7 +34,6 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ExtractListAdapter.ViewHolder holder, int position) {
         ExtractModel extract = mExtract.get(position);
-        holder.id_transfer.setText(extract.id);
         holder.id_user_to.setText(extract.id_to);
         holder.id_user_from.setText(extract.id_from);
         holder.value.setText(extract.value);
@@ -57,7 +56,6 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id_transfer;
         TextView id_user_to;
         TextView id_user_from;
         TextView value;
@@ -66,7 +64,6 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            id_transfer = itemView.findViewById(R.id.idTransfer);
             id_user_to = itemView.findViewById(R.id.idTo);
             id_user_from = itemView.findViewById(R.id.idFrom);
             value = itemView.findViewById(R.id.value);

@@ -10,10 +10,7 @@ public class HomePresenter implements HomeContract.Presenter {
     private final ServiceAPI mApi;
     private final HomeContract.View mDetailsView;
 
-    Context context;
-
     HomePresenter(HomeContract.View detailsView, Context context){
-        this.context = context;
         mApi = new ServiceApiImpl(context);
         mDetailsView = detailsView;
     }
@@ -21,6 +18,7 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void loadUserDetails(String emailUser) {
         mApi.getUser(emailUser, userModel -> {
+            mDetailsView.setLoading(false);
                     mDetailsView.setId(userModel.id);
                     mDetailsView.showDetails(userModel);
                 });

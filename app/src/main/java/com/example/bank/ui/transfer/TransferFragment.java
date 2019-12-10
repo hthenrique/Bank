@@ -1,10 +1,11 @@
 package com.example.bank.ui.transfer;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,22 +15,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
-import com.example.bank.ui.home.HomeActivity;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Objects;
 
 public class TransferFragment extends Fragment implements TransferContract.View {
 
-    TransferContract.UserActionsListener mActionsListener;
-    View root;
-    String idTo;
-    String emailToTransfer;
-    String valueToTransfer;
+    private TransferContract.UserActionsListener mActionsListener;
+    private View root;
+    private String balance;
+    private String emailToTransfer;
+    private EditText emailTo;
+    private String valueToTransfer;
+    private EditText valueTo;
+    private Button sendBtn;
 
     public TransferFragment(){}
 
-    public static Fragment newInstance(){
+    static Fragment newInstance(){
         return new TransferFragment();
     }
 
@@ -43,43 +47,59 @@ public class TransferFragment extends Fragment implements TransferContract.View 
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_transfer, container, false);
         Toolbar mToolbar = root.findViewById(R.id.toolbarTransfer);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
-        ((TransferActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((TransferActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mToolbar);
+        Objects.requireNonNull(((TransferActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((TransferActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
-        EditText emailTo = root.findViewById(R.id.transferTo);
+        emailTo = root.findViewById(R.id.transferTo);
         emailToTransfer = emailTo.getText().toString();
-        EditText valueTo = root.findViewById(R.id.tranferValue);
+        valueTo = root.findViewById(R.id.tranferValue);
         valueToTransfer = valueTo.getText().toString();
+        sendBtn = root.findViewById(R.id.sendBtn);
+        buttonClick();
+        return root;
+    }
 
-        Button sendBtn = root.findViewById(R.id.sendBtn);
+    private void buttonClick(){
         sendBtn.setOnClickListener(v -> {
             emailToTransfer = emailTo.getText().toString();
             valueToTransfer = valueTo.getText().toString();
-            mActionsListener.loadUserDetails(emailToTransfer);
             emailTo.getText().clear();
             valueTo.getText().clear();
+            if (emailToTransfer == null){
+                Snackbar.make(root, "Check destination address", Snackbar.LENGTH_LONG).show();
+            }
+            if (emailToTransfer!= null){
+                mActionsListener.loadUserDetails(emailToTransfer);
+            }
+            ((InputMethodManager) Objects.requireNonNull(Objects.requireNonNull(getContext())
+                    .getSystemService(Context.INPUT_METHOD_SERVICE))).hideSoftInputFromWindow(
+                    sendBtn.getWindowToken(), 0);
         });
-        return root;
     }
 
     @Override
     public void setId(String id) {
-        idTo = id;
-        String idFrom = getActivity().getIntent().getExtras().getString("id");
+        String idFrom = Objects.requireNonNull(Objects.requireNonNull(getActivity())
+                .getIntent().getExtras()).getString("id");
 
         if (emailToTransfer != null){
-            mActionsListener.checkTransferStatus(idFrom,idTo,valueToTransfer);
+            mActionsListener.checkTransferStatus(idFrom, id,valueToTransfer, balance);
         }
     }
 
     @Override
-    public boolean transferStatus(boolean status) {
+    public void setBalance(String balance) {
+        this.balance = balance;
+
+    }
+
+    @Override
+    public void transferStatus(boolean status) {
         if (!status){
-            Snackbar.make(root, "Transfer Fail", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(Objects.requireNonNull(getView()), "Transfer Fail", Snackbar.LENGTH_LONG).show();
         }if (status){
-            Snackbar.make(root, "Transferred with success", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(Objects.requireNonNull(getView()), "Transferred with success", Snackbar.LENGTH_LONG).show();
         }
-        return status;
     }
 }

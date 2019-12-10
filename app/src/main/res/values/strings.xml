@@ -15,4 +15,5 @@
     <string name="menu_transfer">Transfer</string>
     <string name="menu_extract">Extract</string>
     <string name="menu_exit">Exit</string>
+    <string name="enter_destination_email">Enter destination email</string>
 </resources>

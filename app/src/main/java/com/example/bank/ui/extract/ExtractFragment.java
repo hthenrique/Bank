@@ -17,12 +17,12 @@ import com.example.bank.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ExtractFragment extends Fragment implements ExtractContract.View {
 
-    ExtractListAdapter mListAdapter;
-    ExtractContract.Presenter mActionsListener;
-
+    private ExtractListAdapter mListAdapter;
+    private ExtractContract.Presenter mActionsListener;
 
     public ExtractFragment(){}
 
@@ -31,7 +31,7 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
     }
 
     @Override
-    public void onCreate(@NonNull Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
             mListAdapter = new ExtractListAdapter(new ArrayList<>(0));
             mActionsListener = new ExtractPresenter(this, getContext());
@@ -46,11 +46,12 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_extract, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.extractList);
+
         if (mListAdapter != null) {
             recyclerView.setAdapter(mListAdapter);
         }
 
-        String id = getActivity().getIntent().getExtras().getString("id");
+        String id = Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getString("id");
         mActionsListener.loadExtract(id);
 
         int numColumns = 1;
@@ -59,16 +60,14 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
 
         Toolbar mToolbar = root.findViewById(R.id.toolbarExtract);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
-        ((ExtractActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((ExtractActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(((ExtractActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((ExtractActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
         return root;
     }
 
     @Override
     public void setLoading(boolean isActive) {
         getView();
-        //final SwipeRefreshLayout srl = getView().findViewById(R.id.SwipeRefresh);
-        //srl.post(() -> srl.setRefreshing(isAtivo));
     }
 
     @Override
