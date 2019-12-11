@@ -1,6 +1,9 @@
 package com.example.bank.ui.transfer;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.bank.Connection.MyReceiver;
 import com.example.bank.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,6 +28,7 @@ import java.util.Objects;
 public class TransferFragment extends Fragment implements TransferContract.View {
 
     private TransferContract.UserActionsListener mActionsListener;
+    private BroadcastReceiver MyReceiver = null;
     private View root;
     private String balance;
     private String emailToTransfer;
@@ -42,8 +47,19 @@ public class TransferFragment extends Fragment implements TransferContract.View 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActionsListener = new TransferPresenter(this, getContext());
-        getActivity().getWindow().setSoftInputMode(
+        MyReceiver = new MyReceiver();
+        broadcastIntent();
+        Objects.requireNonNull(getActivity()).getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private void broadcastIntent() {
+        Objects.requireNonNull(getActivity()).registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        //unregisterReceiver(MyReceiver);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,

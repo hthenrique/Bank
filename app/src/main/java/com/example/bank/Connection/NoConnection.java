@@ -1,20 +1,18 @@
 package com.example.bank.Connection;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.bank.R;
+import com.example.bank.ui.login.LoginActivity;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Objects;
-
-public class NoConnection extends AppCompatActivity {
+public class NoConnection extends AppCompatActivity implements View.OnClickListener {
 
     Snackbar snackbar;
 
@@ -27,19 +25,27 @@ public class NoConnection extends AppCompatActivity {
         snackbar.show();
         Toolbar noConnectionToolbar = findViewById(R.id.noConnectionToolbar);
         setSupportActionBar(noConnectionToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        Button exitButton = findViewById(R.id.exitButton2);
+        exitButton.setOnClickListener(this);
+        Button tryAgainButton = findViewById(R.id.tryAgainButton);
+        tryAgainButton.setOnClickListener(this);
 
     }
+
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tryAgainButton:
+                onBackPressed();
+                break;
+            case R.id.exitButton2:
+                Intent exit = new Intent(this, LoginActivity.class);
+                startActivity(exit);
+                finish();
+                break;
+            default: break;
         }
-        return super.onOptionsItemSelected(item);
     }
-
-
 }

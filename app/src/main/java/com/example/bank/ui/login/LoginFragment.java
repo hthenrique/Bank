@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
 
     @Override
-    public boolean showStatus(boolean status) {
+    public void showStatus(boolean status) {
         if (!status){
             Snackbar.make(Objects.requireNonNull(getView()), "Verify User and Password", Snackbar.LENGTH_LONG).show();
         }
@@ -81,7 +81,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             startActivity(intent);
         }
 
-        return status;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.example.bank.ui.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.bank.Connection.MyReceiver;
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
 import com.example.bank.ui.extract.ExtractActivity;
@@ -39,6 +43,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
 
 
     private HomeContract.Presenter presenter;
+    private BroadcastReceiver MyReceiver = null;
 
     public HomeFragment(){}
 
@@ -50,6 +55,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        MyReceiver = new MyReceiver();
+        broadcastIntent();
 
         NavigationView navigationView = Objects.requireNonNull(getActivity()).findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -58,6 +65,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         profilePic = headerView.findViewById(R.id.profileView);
         presenter = new HomePresenter(this, getContext());
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void broadcastIntent() {
+        Objects.requireNonNull(getActivity()).registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        //unregisterReceiver(MyReceiver);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -154,6 +170,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
                 startActivity(exit);
                 Objects.requireNonNull(getActivity()).finish();
                 break;
+            default: break;
         }
     }
 }

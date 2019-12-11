@@ -8,11 +8,9 @@ import com.example.bank.API.Retrofit.ServiceApiImpl;
 public class ExtractPresenter implements ExtractContract.Presenter {
     private final ServiceAPI mApi;
     private final ExtractContract.View mExtractView;
-    Context context;
 
 
-    public ExtractPresenter(ExtractContract.View extractView, Context context) {
-        this.context = context;
+    ExtractPresenter(ExtractContract.View extractView, Context context) {
         mApi = new ServiceApiImpl(context);
         mExtractView = extractView;
     }

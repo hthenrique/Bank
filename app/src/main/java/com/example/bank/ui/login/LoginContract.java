@@ -5,7 +5,7 @@ import com.example.bank.Model.GetUserModel;
 public interface LoginContract {
 
     interface View{
-        boolean showStatus(boolean status);
+        void showStatus(boolean status);
         void showDetailsUi (GetUserModel user);
     }
 

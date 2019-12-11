@@ -44,7 +44,7 @@ public class ServiceApiImpl implements ServiceAPI {
 
             @Override
             public void onFailure(@NotNull Call<LoginStatus> call, @NotNull Throwable t) {
-                Toast.makeText(context, "Check User Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Failed to connect to server", Toast.LENGTH_SHORT).show();
             }
         });
 

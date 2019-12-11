@@ -17,6 +17,7 @@
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".Connection.NoConnection"
+            android:label="No Connection"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".ui.home.HomeActivity"
