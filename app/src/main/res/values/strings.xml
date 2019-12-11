@@ -16,4 +16,5 @@
     <string name="menu_extract">Extract</string>
     <string name="menu_exit">Exit</string>
     <string name="enter_destination_email">Enter destination email</string>
+    <string name="no_connection">No Connection</string>
 </resources>
