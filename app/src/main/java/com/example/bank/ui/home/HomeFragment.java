@@ -1,9 +1,6 @@
 package com.example.bank.ui.home;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,7 +18,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.bank.Connection.MyReceiver;
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
 import com.example.bank.ui.extract.ExtractActivity;
@@ -43,7 +39,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
 
 
     private HomeContract.Presenter presenter;
-    private BroadcastReceiver MyReceiver = null;
+
 
     public HomeFragment(){}
 
@@ -55,8 +51,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        MyReceiver = new MyReceiver();
-        broadcastIntent();
 
         NavigationView navigationView = Objects.requireNonNull(getActivity()).findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -67,14 +61,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void broadcastIntent() {
-        Objects.requireNonNull(getActivity()).registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-        //unregisterReceiver(MyReceiver);
-    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -132,16 +119,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
                 Intent transfer = new Intent(getActivity(), TransferActivity.class);
                 transfer.putExtra("id",id_user);
                 transfer.putExtra("email",email);
+                transfer.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                transfer.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(transfer);
                 break;
             case R.id.nav_Extract:
                 Intent extract = new Intent(getActivity(), ExtractActivity.class);
                 extract.putExtra("id",id_user);
+                extract.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                extract.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(extract);
                 break;
             case R.id.menu_exit:
                 Intent exit = new Intent(getActivity(), LoginActivity.class);
+                exit.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                exit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(exit);
+
                 Objects.requireNonNull(getActivity()).finish();
                 break;
             default: break;
@@ -157,16 +151,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
             case R.id.extractButton:
                 Intent extract = new Intent(getActivity(), ExtractActivity.class);
                 extract.putExtra("id",id_user);
+                extract.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                extract.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(extract);
                 break;
             case R.id.transferButton:
                 Intent transfer = new Intent(getActivity(), TransferActivity.class);
                 transfer.putExtra("id",id_user);
                 transfer.putExtra("email",email);
+                transfer.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                transfer.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(transfer);
                 break;
             case  R.id.exitButton:
                 Intent exit = new Intent(getActivity(), LoginActivity.class);
+                exit.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                exit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(exit);
                 Objects.requireNonNull(getActivity()).finish();
                 break;

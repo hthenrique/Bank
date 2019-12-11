@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActionsListener = new LoginPresenter(this,getContext());
-        getActivity().getWindow().setSoftInputMode(
+        Objects.requireNonNull(getActivity()).getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
@@ -78,6 +78,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         if (status){
             Intent intent = new Intent(Objects.requireNonNull(getActivity()).getBaseContext(), HomeActivity.class);
             intent.putExtra("email", emailUser);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
 

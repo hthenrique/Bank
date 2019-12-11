@@ -38,14 +38,30 @@ public class NoConnection extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tryAgainButton:
-                onBackPressed();
+                if (NetworkUtil.getConnectivityStatus(this)){
+                    onBackPressed();
+                }else {
+                    snackbar = Snackbar.make(findViewById(android.R.id.content),
+                            "Please verify your connection",
+                            Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+
                 break;
             case R.id.exitButton2:
                 Intent exit = new Intent(this, LoginActivity.class);
+                exit.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                exit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(exit);
                 finish();
                 break;
             default: break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 }

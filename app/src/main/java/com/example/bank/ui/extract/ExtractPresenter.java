@@ -17,7 +17,7 @@ public class ExtractPresenter implements ExtractContract.Presenter {
 
     @Override
     public void loadExtract(String id_user) {
-        mExtractView.setLoading(false);
+        mExtractView.setLoading(true);
         mApi.getExtract(id_user, extractModel ->{
             mExtractView.setLoading(false);
             mExtractView.showExtract(extractModel);

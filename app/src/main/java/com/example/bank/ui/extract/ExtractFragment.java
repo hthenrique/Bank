@@ -1,8 +1,5 @@
 package com.example.bank.ui.extract;
 
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bank.Connection.MyReceiver;
 import com.example.bank.Model.ExtractModel;
 import com.example.bank.R;
 
@@ -27,7 +23,7 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
 
     private ExtractListAdapter mListAdapter;
     private ExtractContract.Presenter mActionsListener;
-    private BroadcastReceiver MyReceiver = null;
+
 
     public ExtractFragment(){}
 
@@ -41,16 +37,6 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
             mListAdapter = new ExtractListAdapter(new ArrayList<>(0));
             mActionsListener = new ExtractPresenter(this, getContext());
             setHasOptionsMenu(true);
-        MyReceiver = new MyReceiver();
-        broadcastIntent();
-    }
-    private void broadcastIntent() {
-        Objects.requireNonNull(getActivity()).registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Objects.requireNonNull(getActivity()).unregisterReceiver(MyReceiver);
     }
 
     @Override
@@ -82,8 +68,7 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
 
     @Override
     public void setLoading(boolean isActive) {
-        if (getView() == null){
-        }
+        getView();
     }
 
     @Override
