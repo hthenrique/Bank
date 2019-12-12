@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.bank.Model.StatementModel;
 import com.example.bank.R;
@@ -63,12 +65,24 @@ public class StatementFragment extends Fragment implements StatementContract.Vie
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
         Objects.requireNonNull(((StatementActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(((StatementActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+
+        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.SwipeRefreshStatement);
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.colorAccent),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+
+        swipeRefreshLayout.setOnRefreshListener(() -> mActionsListener.loadStatement(id));
         return root;
     }
 
     @Override
     public void setLoading(boolean isActive) {
-        getView();
+        if (getView() == null){
+            return;
+        }
+        final SwipeRefreshLayout srl = getView().findViewById(R.id.SwipeRefreshStatement);
+        srl.post(() -> srl.setRefreshing(isActive));
     }
 
     @Override
