@@ -21,6 +21,7 @@ public class HomePresenter implements HomeContract.Presenter {
             mDetailsView.setLoading(false);
                     mDetailsView.setId(userModel.id);
                     mDetailsView.showDetails(userModel);
+                    mDetailsView.setBalance(userModel.balance);
                 });
     }
 }

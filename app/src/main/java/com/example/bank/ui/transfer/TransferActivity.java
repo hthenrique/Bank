@@ -27,13 +27,17 @@ public class TransferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
 
-        if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
-            MyReceiver = new MyReceiver();
-            broadcastIntent();
-        }if (null == savedInstanceState){
+        if (null == savedInstanceState){
             transferFragment = new TransferFragment();
             initFragment(TransferFragment.newInstance());
         }
+        if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
+            MyReceiver = new MyReceiver();
+            broadcastIntent();
+        }else{
+            MyReceiver = new MyReceiver();
+        }
+
     }
 
     private void broadcastIntent() {

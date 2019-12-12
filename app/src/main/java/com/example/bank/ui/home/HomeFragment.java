@@ -32,11 +32,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
 
     private ImageView profilePic;
     private TextView nameUser;
+    private TextView nameUserMain;
     private TextView emailUser;
     private TextView mbalance;
     private String email;
     private String id_user;
-    private String balance;
+    private String tbalance;
 
 
     private HomeContract.Presenter presenter;
@@ -69,6 +70,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
 
         email = Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getString("email");
         mbalance = root.findViewById(R.id.totalBalance);
+        nameUserMain = root.findViewById(R.id.nameUserMain);
         presenter.loadUserDetails(email);
 
         Button extractButton = root.findViewById(R.id.statementButton);
@@ -102,8 +104,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         id_user = id;
     }
     @Override
+    public void setBalance(String balance) {
+        tbalance = balance;
+    }
+    @Override
     public void showDetails(GetUserModel userModel) {
         nameUser.setText(userModel.name);
+        nameUserMain.setText(userModel.name);
         emailUser.setText(userModel.email);
         mbalance.setText(userModel.balance);
         Picasso.get()
@@ -152,7 +159,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         Intent transfer = new Intent(getActivity(), TransferActivity.class);
         transfer.putExtra("id",id_user);
         transfer.putExtra("email",email);
-        transfer.putExtra("balance",balance);
+        transfer.putExtra("balance",tbalance);
         transfer.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         transfer.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(transfer);

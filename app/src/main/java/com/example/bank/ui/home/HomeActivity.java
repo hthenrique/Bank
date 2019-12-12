@@ -39,14 +39,18 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
-            MyReceiver = new MyReceiver();
-            broadcastIntent();
-        }if (null == savedInstanceState){
+        if (null == savedInstanceState){
             homeFragment = new HomeFragment();
             initFragment(HomeFragment.newInstance());
         }
 
+        if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
+            MyReceiver = new MyReceiver();
+            broadcastIntent();
+        }else{
+            MyReceiver = new MyReceiver();
+        }
+        
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             emailUser = extras.getString("email");

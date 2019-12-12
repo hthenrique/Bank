@@ -6,7 +6,6 @@ import android.net.NetworkInfo;
 
 public class NetworkUtil {
     public static boolean getConnectivityStatus(Context context){
-        boolean status = Boolean.parseBoolean(null);
         ConnectivityManager cm = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -19,8 +18,6 @@ public class NetworkUtil {
         } else {
             return false;
         }
-        return status;
+        return true;
     }
-
-
 }

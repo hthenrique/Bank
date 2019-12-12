@@ -8,6 +8,7 @@ public interface HomeContract {
         void setLoading(boolean isActive);
         void setId(String id);
         void showDetails(GetUserModel userModel);
+        void setBalance(String balance);
     }
 
     interface Presenter{

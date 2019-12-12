@@ -14,15 +14,14 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class NoConnection extends AppCompatActivity implements View.OnClickListener {
 
-    Snackbar snackbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_connection);
-        snackbar = Snackbar.make(findViewById(android.R.id.content), "Verify your connection",
-                Snackbar.LENGTH_LONG);
-        snackbar.show();
+
+        Snackbar.make(findViewById(android.R.id.content),
+                "Verify your connection", Snackbar.LENGTH_LONG).show();
+
         Toolbar noConnectionToolbar = findViewById(R.id.noConnectionToolbar);
         setSupportActionBar(noConnectionToolbar);
 
@@ -30,9 +29,7 @@ public class NoConnection extends AppCompatActivity implements View.OnClickListe
         exitButton.setOnClickListener(this);
         Button tryAgainButton = findViewById(R.id.tryAgainButton);
         tryAgainButton.setOnClickListener(this);
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -41,12 +38,10 @@ public class NoConnection extends AppCompatActivity implements View.OnClickListe
                 if (NetworkUtil.getConnectivityStatus(this)){
                     onBackPressed();
                 }else {
-                    snackbar = Snackbar.make(findViewById(android.R.id.content),
+                    Snackbar.make(findViewById(android.R.id.content),
                             "Please verify your connection",
-                            Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                            Snackbar.LENGTH_LONG).show();
                 }
-
                 break;
             case R.id.exitButton2:
                 Intent exit = new Intent(this, LoginActivity.class);

@@ -56,8 +56,11 @@ public class TransferFragment extends Fragment implements TransferContract.View 
         Objects.requireNonNull(((TransferActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(((TransferActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
+        String tbalance = Objects.requireNonNull(Objects.requireNonNull(getActivity())
+                .getIntent().getExtras()).getString("balance");
+
         balanceTransfer = root.findViewById(R.id.balanceTransfer);
-        balanceTransfer.setText(mbalance);
+        balanceTransfer.setText(tbalance);
         emailTo = root.findViewById(R.id.transferTo);
         emailToTransfer = emailTo.getText().toString();
         valueTo = root.findViewById(R.id.tranferValue);

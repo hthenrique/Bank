@@ -16,8 +16,6 @@ import com.example.bank.Connection.MyReceiver;
 import com.example.bank.Connection.NetworkUtil;
 import com.example.bank.R;
 
-import java.util.Objects;
-
 public class StatementActivity extends AppCompatActivity {
     StatementFragment statementFragment;
     private BroadcastReceiver MyReceiver = null;
@@ -27,13 +25,17 @@ public class StatementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statement);
 
-        if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
-            MyReceiver = new MyReceiver();
-            broadcastIntent();
-        }if (null == savedInstanceState){
+        if (null == savedInstanceState){
             statementFragment = new StatementFragment();
             initFragment(StatementFragment.newInstance());
         }
+        if (!NetworkUtil.getConnectivityStatus(this)) {
+            MyReceiver = new MyReceiver();
+            broadcastIntent();
+        }else{
+            MyReceiver = new MyReceiver();
+        }
+
     }
     private void broadcastIntent() {
         this.registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
