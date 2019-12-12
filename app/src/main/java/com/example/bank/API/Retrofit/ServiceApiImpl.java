@@ -3,7 +3,7 @@ package com.example.bank.API.Retrofit;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.bank.Model.ExtractModel;
+import com.example.bank.Model.StatementModel;
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.Model.LoginStatus;
 import com.example.bank.Model.TransferStatus;
@@ -73,15 +73,15 @@ public class ServiceApiImpl implements ServiceAPI {
     }
 
     @Override
-    public void getExtract(String id_user, final UserServiceCallBack<List<ExtractModel>> callBack) {
-        Call<List<ExtractModel>> callExtract = mRetrofit.getBankStatement(id_user);
-        callExtract.enqueue(new Callback<List<ExtractModel>>() {
+    public void getStatement(String id_user, final UserServiceCallBack<List<StatementModel>> callBack) {
+        Call<List<StatementModel>> callExtract = mRetrofit.getBankStatement(id_user);
+        callExtract.enqueue(new Callback<List<StatementModel>>() {
             @Override
-            public void onResponse(@NotNull Call<List<ExtractModel>> call, @NotNull Response<List<ExtractModel>> response) {
+            public void onResponse(@NotNull Call<List<StatementModel>> call, @NotNull Response<List<StatementModel>> response) {
                 try {
                     if (response.code()==200){
-                        List<ExtractModel> extractModel = response.body();
-                        callBack.onLoaded(extractModel);
+                        List<StatementModel> statementModel = response.body();
+                        callBack.onLoaded(statementModel);
                     }
                 }catch (Exception e){
                     Toast.makeText(context, "Get Extract Fail", Toast.LENGTH_SHORT).show();
@@ -89,7 +89,7 @@ public class ServiceApiImpl implements ServiceAPI {
             }
 
             @Override
-            public void onFailure(@NotNull Call<List<ExtractModel>> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<List<StatementModel>> call, @NotNull Throwable t) {
                 Toast.makeText(context, "Get Extract Response Fail", Toast.LENGTH_SHORT).show();
             }
         });

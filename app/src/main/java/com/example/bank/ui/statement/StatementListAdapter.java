@@ -1,4 +1,4 @@
-package com.example.bank.ui.extract;
+package com.example.bank.ui.statement;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,17 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bank.Model.ExtractModel;
+import com.example.bank.Model.StatementModel;
 import com.example.bank.R;
 
 import java.util.List;
 
-public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.ViewHolder> {
+public class StatementListAdapter extends RecyclerView.Adapter<StatementListAdapter.ViewHolder> {
 
-    private List<ExtractModel> mExtract;
+    private List<StatementModel> mStatement;
 
-    ExtractListAdapter(List<ExtractModel> extract){
-        setList(extract);
+    StatementListAdapter(List<StatementModel> statement){
+        setList(statement);
     }
 
     @NonNull
@@ -27,31 +27,31 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View noteView = inflater.inflate(R.layout.item_extract, parent, false);
+        View noteView = inflater.inflate(R.layout.item_statement, parent, false);
         return new ViewHolder(noteView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExtractListAdapter.ViewHolder holder, int position) {
-        ExtractModel extract = mExtract.get(position);
-        holder.id_user_to.setText(extract.id_to);
-        holder.id_user_from.setText(extract.id_from);
-        holder.value.setText(extract.value);
-        holder.date.setText(extract.data);
+    public void onBindViewHolder(@NonNull StatementListAdapter.ViewHolder holder, int position) {
+        StatementModel statement = mStatement.get(position);
+        holder.id_user_to.setText(statement.id_to);
+        holder.id_user_from.setText(statement.id_from);
+        holder.value.setText(statement.value);
+        holder.date.setText(statement.data);
     }
 
-    void replaceData(List<ExtractModel> extract){
-        setList(extract);
+    void replaceData(List<StatementModel> statement){
+        setList(statement);
         notifyDataSetChanged();
     }
 
-    private void setList(List<ExtractModel> extract) {
-        mExtract = extract;
+    private void setList(List<StatementModel> statement) {
+        mStatement = statement;
     }
 
     @Override
     public int getItemCount() {
-        return mExtract.size();
+        return mStatement.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +68,7 @@ public class ExtractListAdapter extends RecyclerView.Adapter<ExtractListAdapter.
             id_user_from = itemView.findViewById(R.id.idFrom);
             value = itemView.findViewById(R.id.value);
             date = itemView.findViewById(R.id.dateTransfer);
-            view = itemView.findViewById(R.id.itemExtract);
+            view = itemView.findViewById(R.id.itemStatement);
         }
     }
 }

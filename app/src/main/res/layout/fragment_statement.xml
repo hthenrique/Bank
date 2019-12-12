@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarExtract"
+        android:id="@+id/toolbarStatement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -13,7 +13,7 @@
         android:theme="?attr/actionBarTheme" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/extractList"
+        android:id="@+id/statementList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

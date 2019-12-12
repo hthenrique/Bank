@@ -26,8 +26,6 @@ public class TransferActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
-        transferFragment = new TransferFragment();
-        initFragment(TransferFragment.newInstance());
 
         if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
             MyReceiver = new MyReceiver();

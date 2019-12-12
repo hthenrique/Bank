@@ -20,7 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
-import com.example.bank.ui.extract.ExtractActivity;
+import com.example.bank.ui.statement.StatementActivity;
 import com.example.bank.ui.login.LoginActivity;
 import com.example.bank.ui.transfer.TransferActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -33,9 +33,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     private ImageView profilePic;
     private TextView nameUser;
     private TextView emailUser;
-    private TextView balance;
+    private TextView mbalance;
     private String email;
     private String id_user;
+    private String balance;
 
 
     private HomeContract.Presenter presenter;
@@ -67,10 +68,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         email = Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getString("email");
-        balance = root.findViewById(R.id.totalBalance);
+        mbalance = root.findViewById(R.id.totalBalance);
         presenter.loadUserDetails(email);
 
-        Button extractButton = root.findViewById(R.id.extractButton);
+        Button extractButton = root.findViewById(R.id.statementButton);
         extractButton.setOnClickListener(this);
         Button transferButton = root.findViewById(R.id.transferButton);
         transferButton.setOnClickListener(this);
@@ -104,7 +105,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public void showDetails(GetUserModel userModel) {
         nameUser.setText(userModel.name);
         emailUser.setText(userModel.email);
-        balance.setText(userModel.balance);
+        mbalance.setText(userModel.balance);
         Picasso.get()
                 .load(userModel.profile)
                 .fit()
@@ -116,27 +117,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_Transfer:
-                Intent transfer = new Intent(getActivity(), TransferActivity.class);
-                transfer.putExtra("id",id_user);
-                transfer.putExtra("email",email);
-                transfer.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                transfer.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(transfer);
+                startActivityTransfer();
                 break;
-            case R.id.nav_Extract:
-                Intent extract = new Intent(getActivity(), ExtractActivity.class);
-                extract.putExtra("id",id_user);
-                extract.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                extract.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(extract);
+            case R.id.nav_Statement:
+                startActivityStatement();
                 break;
             case R.id.menu_exit:
-                Intent exit = new Intent(getActivity(), LoginActivity.class);
-                exit.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                exit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(exit);
-
-                Objects.requireNonNull(getActivity()).finish();
+                startActivityLogin();
                 break;
             default: break;
         }
@@ -148,29 +135,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.extractButton:
-                Intent extract = new Intent(getActivity(), ExtractActivity.class);
-                extract.putExtra("id",id_user);
-                extract.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                extract.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(extract);
+            case R.id.statementButton:
+                startActivityStatement();
                 break;
             case R.id.transferButton:
-                Intent transfer = new Intent(getActivity(), TransferActivity.class);
-                transfer.putExtra("id",id_user);
-                transfer.putExtra("email",email);
-                transfer.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                transfer.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(transfer);
+                startActivityTransfer();
                 break;
             case  R.id.exitButton:
-                Intent exit = new Intent(getActivity(), LoginActivity.class);
-                exit.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                exit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(exit);
-                Objects.requireNonNull(getActivity()).finish();
+                startActivityLogin();
                 break;
             default: break;
         }
+    }
+
+    private void startActivityTransfer(){
+        Intent transfer = new Intent(getActivity(), TransferActivity.class);
+        transfer.putExtra("id",id_user);
+        transfer.putExtra("email",email);
+        transfer.putExtra("balance",balance);
+        transfer.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        transfer.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(transfer);
+    }
+    private void startActivityStatement(){
+        Intent statement = new Intent(getActivity(), StatementActivity.class);
+        statement.putExtra("id",id_user);
+        statement.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        statement.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(statement);
+    }
+    private void startActivityLogin(){
+        Intent exit = new Intent(getActivity(), LoginActivity.class);
+        exit.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        exit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(exit);
+        Objects.requireNonNull(getActivity()).finish();
     }
 }

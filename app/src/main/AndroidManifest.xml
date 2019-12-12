@@ -34,8 +34,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.extract.ExtractActivity"
-            android:label="Extract" />
+            android:name=".ui.statement.StatementActivity"
+            android:label="Statement" />
         <activity
             android:name=".ui.transfer.TransferActivity"
             android:label="Transfer"

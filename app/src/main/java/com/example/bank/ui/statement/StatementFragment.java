@@ -1,4 +1,4 @@
-package com.example.bank.ui.extract;
+package com.example.bank.ui.statement;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,30 +12,30 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bank.Model.ExtractModel;
+import com.example.bank.Model.StatementModel;
 import com.example.bank.R;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ExtractFragment extends Fragment implements ExtractContract.View {
+public class StatementFragment extends Fragment implements StatementContract.View {
 
-    private ExtractListAdapter mListAdapter;
-    private ExtractContract.Presenter mActionsListener;
+    private StatementListAdapter mListAdapter;
+    private StatementContract.Presenter mActionsListener;
 
 
-    public ExtractFragment(){}
+    public StatementFragment(){}
 
     static Fragment newInstance(){
-        return new ExtractFragment();
+        return new StatementFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-            mListAdapter = new ExtractListAdapter(new ArrayList<>(0));
-            mActionsListener = new ExtractPresenter(this, getContext());
+            mListAdapter = new StatementListAdapter(new ArrayList<>(0));
+            mActionsListener = new StatementPresenter(this, getContext());
             setHasOptionsMenu(true);
     }
 
@@ -45,24 +45,24 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_extract, container, false);
-        RecyclerView recyclerView = root.findViewById(R.id.extractList);
+        View root = inflater.inflate(R.layout.fragment_statement, container, false);
+        RecyclerView recyclerView = root.findViewById(R.id.statementList);
 
         if (mListAdapter != null) {
             recyclerView.setAdapter(mListAdapter);
         }
 
         String id = Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getString("id");
-        mActionsListener.loadExtract(id);
+        mActionsListener.loadStatement(id);
 
         int numColumns = 1;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), numColumns));
 
-        Toolbar mToolbar = root.findViewById(R.id.toolbarExtract);
+        Toolbar mToolbar = root.findViewById(R.id.toolbarStatement);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
-        Objects.requireNonNull(((ExtractActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        Objects.requireNonNull(((ExtractActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(((StatementActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((StatementActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
         return root;
     }
 
@@ -72,7 +72,7 @@ public class ExtractFragment extends Fragment implements ExtractContract.View {
     }
 
     @Override
-    public void showExtract(List<ExtractModel> extract) {
-        mListAdapter.replaceData(extract);
+    public void showStatement(List<StatementModel> statement) {
+        mListAdapter.replaceData(statement);
     }
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ExtractModel {
+public class StatementModel {
 
     @SerializedName("id")
     public String id;
@@ -17,6 +17,6 @@ public class ExtractModel {
     @SerializedName("data")
     public String data;
 
-    public ExtractModel(){
+    public StatementModel(){
     }
 }

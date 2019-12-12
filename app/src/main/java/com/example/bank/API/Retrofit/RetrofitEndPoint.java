@@ -1,6 +1,6 @@
 package com.example.bank.API.Retrofit;
 
-import com.example.bank.Model.ExtractModel;
+import com.example.bank.Model.StatementModel;
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.Model.LoginStatus;
 import com.example.bank.Model.TransferStatus;
@@ -30,7 +30,7 @@ public interface RetrofitEndPoint {
     //Extract
     @FormUrlEncoded
     @POST("./api/get-bank-statement")
-    Call <List<ExtractModel>> getBankStatement
+    Call <List<StatementModel>> getBankStatement
             (@Field("id_user") String id_user);
 
     //Transfer

@@ -1,4 +1,4 @@
-package com.example.bank.ui.extract;
+package com.example.bank.ui.statement;
 
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
@@ -18,23 +18,21 @@ import com.example.bank.R;
 
 import java.util.Objects;
 
-public class ExtractActivity extends AppCompatActivity {
-    ExtractFragment extractFragment;
+public class StatementActivity extends AppCompatActivity {
+    StatementFragment statementFragment;
     private BroadcastReceiver MyReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_extract);
-        extractFragment = new ExtractFragment();
-        initFragment(ExtractFragment.newInstance());
+        setContentView(R.layout.activity_statement);
 
         if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
             MyReceiver = new MyReceiver();
             broadcastIntent();
         }if (null == savedInstanceState){
-            extractFragment = new ExtractFragment();
-            initFragment(ExtractFragment.newInstance());
+            statementFragment = new StatementFragment();
+            initFragment(StatementFragment.newInstance());
         }
     }
     private void broadcastIntent() {
@@ -46,10 +44,10 @@ public class ExtractActivity extends AppCompatActivity {
         //this.unregisterReceiver(MyReceiver);
     }
 
-    private void initFragment(Fragment extractFragment){
+    private void initFragment(Fragment statementFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.content_extract, extractFragment);
+        transaction.add(R.id.content_statement, statementFragment);
         transaction.commit();
     }
 
