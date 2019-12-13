@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class StatementFragment extends Fragment implements StatementContract.Vie
 
     private StatementListAdapter mListAdapter;
     private StatementContract.Presenter mActionsListener;
+    ProgressBar progressBar;
 
 
     public StatementFragment(){}
@@ -49,6 +51,8 @@ public class StatementFragment extends Fragment implements StatementContract.Vie
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_statement, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.statementList);
+
+        progressBar = root.findViewById(R.id.progressBar);
 
         if (mListAdapter != null) {
             recyclerView.setAdapter(mListAdapter);
@@ -87,6 +91,7 @@ public class StatementFragment extends Fragment implements StatementContract.Vie
 
     @Override
     public void showStatement(List<StatementModel> statement) {
+        progressBar.setVisibility(View.GONE);
         mListAdapter.replaceData(statement);
     }
 }
