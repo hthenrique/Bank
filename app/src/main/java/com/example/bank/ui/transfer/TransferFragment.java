@@ -28,6 +28,7 @@ public class TransferFragment extends Fragment implements TransferContract.View 
     private View root;
     private TextView balanceTransfer;
     private String mbalance;
+    String tbalance;
     private String emailToTransfer;
     private EditText emailTo;
     private String valueToTransfer;
@@ -56,7 +57,7 @@ public class TransferFragment extends Fragment implements TransferContract.View 
         Objects.requireNonNull(((TransferActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(((TransferActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
-        String tbalance = Objects.requireNonNull(Objects.requireNonNull(getActivity())
+        tbalance = Objects.requireNonNull(Objects.requireNonNull(getActivity())
                 .getIntent().getExtras()).getString("balance");
 
         balanceTransfer = root.findViewById(R.id.balanceTransfer);
@@ -94,13 +95,13 @@ public class TransferFragment extends Fragment implements TransferContract.View 
                 .getIntent().getExtras()).getString("id");
 
         if (emailToTransfer != null){
-            mActionsListener.checkTransferStatus(idFrom, id,valueToTransfer, mbalance);
+            mActionsListener.checkTransferStatus(idFrom, id,valueToTransfer, tbalance);
         }
     }
 
     @Override
     public void setBalance(String balance) {
-        mbalance = balance;
+        tbalance = balance;
     }
 
     @Override
