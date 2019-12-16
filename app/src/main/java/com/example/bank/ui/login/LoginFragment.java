@@ -59,7 +59,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void onResume() {
         super.onResume();
-            Snackbar.make(Objects.requireNonNull(getView()), "Welcome", Snackbar.LENGTH_LONG).show();
     }
 
     private void buttonClick(){
@@ -81,7 +80,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            getActivity().finish();
         }
 
     }

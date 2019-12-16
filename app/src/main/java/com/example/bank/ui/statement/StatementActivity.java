@@ -4,9 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -43,7 +41,6 @@ public class StatementActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        //this.unregisterReceiver(MyReceiver);
     }
 
     private void initFragment(Fragment statementFragment){
@@ -51,15 +48,6 @@ public class StatementActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.content_statement, statementFragment);
         transaction.commit();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.bank.ui.transfer;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -26,9 +27,7 @@ public class TransferFragment extends Fragment implements TransferContract.View 
 
     private TransferContract.UserActionsListener mActionsListener;
     private View root;
-    private TextView balanceTransfer;
-    private String mbalance;
-    String tbalance;
+    private String tbalance;
     private String emailToTransfer;
     private EditText emailTo;
     private String valueToTransfer;
@@ -60,7 +59,7 @@ public class TransferFragment extends Fragment implements TransferContract.View 
         tbalance = Objects.requireNonNull(Objects.requireNonNull(getActivity())
                 .getIntent().getExtras()).getString("balance");
 
-        balanceTransfer = root.findViewById(R.id.balanceTransfer);
+        TextView balanceTransfer = root.findViewById(R.id.balanceTransfer);
         balanceTransfer.setText(tbalance);
         emailTo = root.findViewById(R.id.transferTo);
         emailToTransfer = emailTo.getText().toString();
@@ -111,5 +110,15 @@ public class TransferFragment extends Fragment implements TransferContract.View 
         }if (status){
             Snackbar.make(Objects.requireNonNull(getView()), "Transferred with success", Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            Objects.requireNonNull(getActivity()).onBackPressed();
+            getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -21,7 +21,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
 import com.example.bank.ui.statement.StatementActivity;
-import com.example.bank.ui.login.LoginActivity;
 import com.example.bank.ui.transfer.TransferActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
@@ -172,10 +171,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         startActivity(statement);
     }
     private void startActivityLogin(){
-        Intent exit = new Intent(getActivity(), LoginActivity.class);
-        exit.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        exit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(exit);
-        Objects.requireNonNull(getActivity()).finish();
+        Objects.requireNonNull(getActivity()).onBackPressed();
+        getActivity().finish();
     }
 }

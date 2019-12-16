@@ -71,7 +71,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        //this.unregisterReceiver(MyReceiver);
     }
 
     @Override

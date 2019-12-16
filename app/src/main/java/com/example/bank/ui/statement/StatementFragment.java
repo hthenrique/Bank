@@ -2,6 +2,7 @@ package com.example.bank.ui.statement;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -26,7 +27,7 @@ public class StatementFragment extends Fragment implements StatementContract.Vie
 
     private StatementListAdapter mListAdapter;
     private StatementContract.Presenter mActionsListener;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
 
     public StatementFragment(){}
@@ -93,5 +94,15 @@ public class StatementFragment extends Fragment implements StatementContract.Vie
     public void showStatement(List<StatementModel> statement) {
         progressBar.setVisibility(View.GONE);
         mListAdapter.replaceData(statement);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            Objects.requireNonNull(getActivity()).onBackPressed();
+            getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
