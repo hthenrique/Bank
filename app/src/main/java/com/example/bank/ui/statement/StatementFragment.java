@@ -95,14 +95,4 @@ public class StatementFragment extends Fragment implements StatementContract.Vie
         progressBar.setVisibility(View.GONE);
         mListAdapter.replaceData(statement);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            Objects.requireNonNull(getActivity()).onBackPressed();
-            getActivity().finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -10,8 +10,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="title_activity_login">Login</string>
-
-    <string name="menu_home">Home</string>
+    <string name="menu_home">My Account</string>
     <string name="menu_transfer">Transfer</string>
     <string name="menu_statement">Statement</string>
     <string name="menu_exit">Exit</string>
@@ -25,10 +24,12 @@
     <string name="welcome">Welcome</string>
     <string name="name">Name</string>
     <string name="your_balance">Your Balance</string>
-    <string name="r">R$</string>
-    <string name="_0">0</string>
-    <string name="_00">,00</string>
     <string name="extract">Extract</string>
     <string name="transfer">Transfer</string>
     <string name="exit">Exit</string>
+    <string name="r">R$</string>
+    <string name="_00">,00</string>
+    <string name="_0">0</string>
+    <string name="send">Send</string>
+    <string name="statement">Statement</string>
 </resources>

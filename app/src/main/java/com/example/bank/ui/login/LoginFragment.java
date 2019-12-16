@@ -1,11 +1,13 @@
 package com.example.bank.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
-public class LoginFragment extends Fragment implements LoginContract.View {
+public class LoginFragment extends Fragment implements LoginContract.View, View.OnFocusChangeListener {
 
     private LoginContract.UserActionsListener mActionsListener;
     private String emailUser;
@@ -47,10 +49,15 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
+
         email = root.findViewById(R.id.username);
+        email.setOnFocusChangeListener(this);
         emailUser = email.getText().toString();
+
         password = root.findViewById(R.id.password);
+        password.setOnFocusChangeListener(this);
         passwordUser = password.getText().toString();
+
         button = root.findViewById(R.id.goBtn);
         buttonClick();
         return root;
@@ -93,5 +100,13 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         intent.putExtra("profile", user.profile);
         intent.putExtra("balance", user.balance);
         startActivity(intent);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(!v.hasFocus()) {
+            InputMethodManager imm =  (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 }

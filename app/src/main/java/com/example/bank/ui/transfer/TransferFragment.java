@@ -3,7 +3,6 @@ package com.example.bank.ui.transfer;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -23,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
-public class TransferFragment extends Fragment implements TransferContract.View {
+public class TransferFragment extends Fragment implements TransferContract.View, View.OnFocusChangeListener {
 
     private TransferContract.UserActionsListener mActionsListener;
     private View root;
@@ -61,10 +60,15 @@ public class TransferFragment extends Fragment implements TransferContract.View 
 
         TextView balanceTransfer = root.findViewById(R.id.balanceTransfer);
         balanceTransfer.setText(tbalance);
+
         emailTo = root.findViewById(R.id.transferTo);
         emailToTransfer = emailTo.getText().toString();
+        emailTo.setOnFocusChangeListener(this);
+
         valueTo = root.findViewById(R.id.tranferValue);
         valueToTransfer = valueTo.getText().toString();
+        valueTo.setOnFocusChangeListener(this);
+
         sendBtn = root.findViewById(R.id.sendBtn);
         buttonClick();
         return root;
@@ -113,12 +117,10 @@ public class TransferFragment extends Fragment implements TransferContract.View 
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            Objects.requireNonNull(getActivity()).onBackPressed();
-            getActivity().finish();
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(!v.hasFocus()) {
+            InputMethodManager imm =  (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
-        return super.onOptionsItemSelected(item);
     }
 }
