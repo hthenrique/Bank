@@ -1,12 +1,15 @@
 package com.example.bank.ui.login;
 
+import com.example.bank.Model.GetUserModel;
+
 public interface LoginContract {
 
     interface View{
+        void showStatus(boolean status);
+        void showDetailsUi (GetUserModel user);
     }
 
     interface UserActionsListener{
-
-        void loadUser(String email, String password);
+        void loadUser(String emailUser, String passwordUser);
     }
 }

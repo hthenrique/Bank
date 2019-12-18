@@ -1,34 +1,34 @@
 package com.example.bank.ui.home;
 
-import android.content.Intent;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
-import com.example.bank.ui.extract.ExtractActivity;
-import com.example.bank.ui.extract.ExtractFragment;
-import com.example.bank.ui.login.LoginActivity;
-import com.example.bank.R;
-
-import android.view.MenuItem;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.bank.ui.transfer.TransferActivity;
-import com.example.bank.ui.transfer.TransferFragment;
+import com.example.bank.Connection.MyReceiver;
+import com.example.bank.Connection.NetworkUtil;
+import com.example.bank.R;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.drawerlayout.widget.DrawerLayout;
+import java.util.Objects;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+public class HomeActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
+    private BroadcastReceiver MyReceiver = null;
+    HomeFragment homeFragment;
+
+    String emailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +38,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        if (null == savedInstanceState){
+            homeFragment = new HomeFragment();
+            initFragment(HomeFragment.newInstance());
+        }
+
+        if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
+            MyReceiver = new MyReceiver();
+            broadcastIntent();
+        }else{
+            MyReceiver = new MyReceiver();
+        }
+        
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            emailUser = extras.getString("email");
+        }
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_Transfer, R.id.nav_Extract)
+                R.id.nav_home, R.id.nav_Transfer, R.id.nav_Statement)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void broadcastIntent() {
+        this.registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -57,26 +80,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
-            case R.id.nav_Transfer:
-                Intent home = new Intent(HomeActivity.this, TransferActivity.class);
-                startActivity(home);
-                break;
-            case R.id.nav_Extract:
-                Intent extract = new Intent(HomeActivity.this, ExtractActivity.class);
-                startActivity(extract);
-                break;
-            case R.id.menu_exit:
-                Intent exit = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(exit);
-                finish();
-                break;
-                default: break;
-        }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    private void initFragment(Fragment homeFragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.includeMain, homeFragment);
+        transaction.commit();
     }
 }

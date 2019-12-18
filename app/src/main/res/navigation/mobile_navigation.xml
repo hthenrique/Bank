@@ -18,9 +18,9 @@
         tools:layout="@layout/fragment_transfer" />
 
     <fragment
-        android:id="@+id/nav_Extract"
-        android:name="com.example.bank.ui.extract.ExtractFragment"
-        android:label="@string/menu_extract"
-        tools:layout="@layout/fragment_extract" />
+        android:id="@+id/nav_Statement"
+        android:name="com.example.bank.ui.statement.StatementFragment"
+        android:label="@string/menu_statement"
+        tools:layout="@layout/fragment_statement" />
 
 </navigation>

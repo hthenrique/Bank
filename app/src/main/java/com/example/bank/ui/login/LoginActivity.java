@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+
     private void initFragment(Fragment loginFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
