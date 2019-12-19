@@ -1,17 +1,23 @@
 package com.example.bank.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,7 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, HomeContract.View, NavigationView.OnNavigationItemSelectedListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, HomeContract.View, NavigationView.OnNavigationItemSelectedListener{
 
     private ImageView profilePic;
     private TextView nameUser;
@@ -72,6 +78,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         mbalance = root.findViewById(R.id.totalBalance);
         nameUserMain = root.findViewById(R.id.nameUserMain);
         presenter.loadUserDetails(email);
+
+        final int color = R.color.colorBackground;
+        @SuppressLint("ResourceAsColor") final Drawable foregroud = new ColorDrawable(color);
+
 
         Button extractButton = root.findViewById(R.id.statementButton);
         extractButton.setOnClickListener(this);

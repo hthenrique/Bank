@@ -18,6 +18,8 @@
         android:id="@+id/switchDarkMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:minHeight="?attr/actionBarSize"
         android:text="@string/dark_mode" />
 </LinearLayout>

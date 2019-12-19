@@ -1,5 +1,8 @@
 package com.example.bank.ui.settings;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.bank.R;
-import com.example.bank.ui.statement.StatementActivity;
 
 import java.util.Objects;
 
@@ -26,7 +28,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
         Toolbar mToolbar = root.findViewById(R.id.toolbarSettings);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mToolbar);
         Objects.requireNonNull(((SettingsActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(((SettingsActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
@@ -36,6 +38,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     }
 
 
+    @SuppressLint("ApplySharedPref")
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked){
@@ -43,5 +46,9 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         }else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+        SharedPreferences settings = Objects.requireNonNull(this.getActivity()).getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("switchkey", isChecked);
+        editor.commit();
     }
 }

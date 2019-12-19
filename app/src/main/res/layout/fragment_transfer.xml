@@ -115,6 +115,7 @@
         android:background="@drawable/round_button"
         android:text="@string/send"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:foregroundTint="@color/colorBackground"
+        android:textColor="@color/colorBackground"
         android:textSize="14sp" />
 </LinearLayout>

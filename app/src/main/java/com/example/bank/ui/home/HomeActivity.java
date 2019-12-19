@@ -1,5 +1,6 @@
 package com.example.bank.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -7,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.bank.Connection.MyReceiver;
 import com.example.bank.Connection.NetworkUtil;
 import com.example.bank.R;
+import com.example.bank.ui.settings.SettingsActivity;
+import com.example.bank.ui.settings.SharePref;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
@@ -31,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
     String emailUser;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
