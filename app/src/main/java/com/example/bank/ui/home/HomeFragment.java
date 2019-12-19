@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
+import com.example.bank.ui.settings.SettingsActivity;
 import com.example.bank.ui.statement.StatementActivity;
 import com.example.bank.ui.transfer.TransferActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -128,6 +129,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
             case R.id.nav_Statement:
                 startActivityStatement();
                 break;
+            case R.id.nav_Settings:
+                startActivitySettings();
+                break;
             case R.id.menu_exit:
                 startActivityLogin();
                 break;
@@ -169,6 +173,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         statement.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         statement.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(statement);
+    }
+    private void startActivitySettings() {
+        Intent settings = new Intent(getActivity(), SettingsActivity.class);
+        settings.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(settings);
     }
     private void startActivityLogin(){
         Objects.requireNonNull(getActivity()).onBackPressed();

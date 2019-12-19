@@ -4,7 +4,10 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ffffff</color>
     <color name="colorBackground">#212121</color>
-    <color name="EditTextColorPrimary">#484848</color>
-    <color name="Text">#ffffff</color>
-    <color name="colorTranslucentBlack" />
+    <color name="editTextColor">#484848</color>
+    <color name="colorText">#ffffff</color>
+    <color name="colorTint">#ffffff</color>
+    <color name="colorButton">#ffffff</color>
+    <color name="colorButtonPressed">#000000</color>
+    
 </resources>

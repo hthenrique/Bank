@@ -14,35 +14,45 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:configChanges="uiMode"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ui.splash.SplashScreen"
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:configChanges="uiMode"/>
+        <activity
+            android:name=".ui.splash.SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="uiMode"/>
         <activity
             android:name=".Connection.NoConnection"
             android:label="No Connection"
+            android:configChanges="uiMode"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".ui.home.HomeActivity"
             android:label="My Account"
-            android:theme="@style/AppTheme.NoActionBar" />
-
+            android:configChanges="uiMode"/>
         <activity
             android:name=".ui.statement.StatementActivity"
-            android:label="Statement" />
+            android:label="Statement"
+            android:configChanges="uiMode"/>
         <activity
             android:name=".ui.transfer.TransferActivity"
             android:label="Transfer"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="uiMode"/>
     </application>
 
 </manifest>

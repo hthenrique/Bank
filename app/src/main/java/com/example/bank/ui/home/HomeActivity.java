@@ -2,6 +2,7 @@ package com.example.bank.ui.home;
 
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 
@@ -79,6 +80,8 @@ public class HomeActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 
     private void initFragment(Fragment homeFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

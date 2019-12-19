@@ -13,6 +13,10 @@
             android:id="@+id/nav_Transfer"
             android:icon="@drawable/ic_menu_send"
             android:title="@string/menu_transfer" />
+        <item
+            android:id="@+id/nav_Settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/menu_settings" />
     </group>
 
 
