@@ -8,6 +8,6 @@
     <color name="colorText">#ffffff</color>
     <color name="colorTint">#ffffff</color>
     <color name="colorButton">#ffffff</color>
-    <color name="colorButtonPressed">#000000</color>
+    <color name="colorButtonPressed">#484848</color>
     
 </resources>

@@ -21,6 +21,8 @@ import com.example.bank.R;
 
 import java.util.Objects;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
     @Override
@@ -41,14 +43,21 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     @SuppressLint("ApplySharedPref")
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked){
+        SharedPreferences prefs = getActivity().getSharedPreferences("com.mobileapp.smartapplocker", MODE_PRIVATE);
+        boolean switchState = prefs.getBoolean("service_status", isChecked);
+
+        if(isChecked){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
+            SharedPreferences.Editor editor = this.getActivity().getSharedPreferences ("com.mobileapp.smartapplocker",
+                    MODE_PRIVATE).edit();
+            editor.putBoolean("Service On", switchState);
+            editor.commit();
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            SharedPreferences.Editor editor = this.getActivity().getSharedPreferences ("com.mobileapp.smartapplocker",
+                    MODE_PRIVATE).edit();
+            editor.putBoolean("Service off", switchState);
+            editor.commit();
         }
-        SharedPreferences settings = Objects.requireNonNull(this.getActivity()).getSharedPreferences("pref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("switchkey", isChecked);
-        editor.commit();
     }
 }

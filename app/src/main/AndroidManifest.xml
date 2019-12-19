@@ -37,7 +37,9 @@
             android:label="No Connection"/>
         <activity
             android:name=".ui.home.HomeActivity"
-            android:label="My Account"/>
+            android:label="My Account"
+            android:configChanges="uiMode"/>
+        <!--android:configChanges="uiMode"-->
         <activity
             android:name=".ui.statement.StatementActivity"
             android:label="Statement" />
