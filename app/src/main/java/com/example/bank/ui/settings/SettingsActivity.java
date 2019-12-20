@@ -1,27 +1,33 @@
 package com.example.bank.ui.settings;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bank.Connection.MyReceiver;
+import com.example.bank.Connection.NetworkUtil;
 import com.example.bank.R;
-import com.example.bank.ui.home.HomeActivity;
 
 import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
-    String email;
+
+    private BroadcastReceiver MyReceiver = null;
 
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        email = Objects.requireNonNull(this.getIntent().getExtras()).getString("email");
+
+        if (!NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))) {
+            MyReceiver = new MyReceiver();
+            broadcastIntent();
+        }
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -29,16 +35,12 @@ public class SettingsActivity extends AppCompatActivity {
                 .commit();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra("email", email);
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
+    private void broadcastIntent() {
+        this.registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 }

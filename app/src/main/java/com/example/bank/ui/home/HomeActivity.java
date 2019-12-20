@@ -41,10 +41,8 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        if (null == savedInstanceState){
             homeFragment = new HomeFragment();
             initFragment(HomeFragment.newInstance());
-        }
 
         if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
             MyReceiver = new MyReceiver();
@@ -81,13 +79,9 @@ public class HomeActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
-
     private void initFragment(Fragment homeFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.includeMain, homeFragment);
         transaction.commit();
     }
 }

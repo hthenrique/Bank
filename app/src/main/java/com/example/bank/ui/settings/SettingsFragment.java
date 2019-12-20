@@ -1,13 +1,11 @@
 package com.example.bank.ui.settings;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
@@ -18,14 +16,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.bank.R;
+import com.example.bank.ui.home.HomeActivity;
 
 import java.util.Objects;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+public class SettingsFragment extends Fragment{
     private Switch switchDarkMode;
-    private boolean switchState;
+    String email;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,27 +32,33 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mToolbar);
         Objects.requireNonNull(((SettingsActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(((SettingsActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        setHasOptionsMenu(true);
+
+        email = Objects.requireNonNull(getActivity().getIntent().getExtras()).getString("email");
 
         switchDarkMode = root.findViewById(R.id.switchDarkMode);
-        switchDarkMode.setOnCheckedChangeListener(this);
-        switchDarkMode.setChecked(switchState);
+        switchDarkMode.setOnClickListener(v -> {
+            if(switchDarkMode.isChecked() == true){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                switchDarkMode.setChecked(true);
+            }else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                switchDarkMode.setChecked(false);
+            }
+        });
         return root;
     }
 
-
-    @SuppressLint("ApplySharedPref")
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPreferences prefs = getActivity().getSharedPreferences("darkMode", MODE_PRIVATE);
-        isChecked = prefs.getBoolean("service_status", isChecked);
-
-        if(isChecked == true){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-            switchState = true;
-        }else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            switchState = false;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            intent.putExtra("email", email);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            getActivity().finish();
         }
+        return super.onOptionsItemSelected(item);
     }
 }

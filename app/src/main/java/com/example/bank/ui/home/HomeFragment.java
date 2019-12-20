@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
 
     public HomeFragment(){}
 
-    static Fragment newInstance(){
+    public static Fragment newInstance(){
         return new HomeFragment();
     }
 
