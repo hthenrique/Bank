@@ -24,6 +24,8 @@ import java.util.Objects;
 import static android.content.Context.MODE_PRIVATE;
 
 public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+    private Switch switchDarkMode;
+    private boolean switchState;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,8 +36,9 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         Objects.requireNonNull(((SettingsActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(((SettingsActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
-        Switch switchDarkMode = root.findViewById(R.id.switchDarkMode);
+        switchDarkMode = root.findViewById(R.id.switchDarkMode);
         switchDarkMode.setOnCheckedChangeListener(this);
+        switchDarkMode.setChecked(switchState);
         return root;
     }
 
@@ -43,21 +46,16 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     @SuppressLint("ApplySharedPref")
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPreferences prefs = getActivity().getSharedPreferences("com.mobileapp.smartapplocker", MODE_PRIVATE);
-        boolean switchState = prefs.getBoolean("service_status", isChecked);
+        SharedPreferences prefs = getActivity().getSharedPreferences("darkMode", MODE_PRIVATE);
+        isChecked = prefs.getBoolean("service_status", isChecked);
 
-        if(isChecked){
+        if(isChecked == true){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            SharedPreferences.Editor editor = this.getActivity().getSharedPreferences ("com.mobileapp.smartapplocker",
-                    MODE_PRIVATE).edit();
-            editor.putBoolean("Service On", switchState);
-            editor.commit();
-        } else {
+
+            switchState = true;
+        }else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            SharedPreferences.Editor editor = this.getActivity().getSharedPreferences ("com.mobileapp.smartapplocker",
-                    MODE_PRIVATE).edit();
-            editor.putBoolean("Service off", switchState);
-            editor.commit();
+            switchState = false;
         }
     }
 }

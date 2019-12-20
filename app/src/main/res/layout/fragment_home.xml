@@ -8,22 +8,22 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        android:orientation="vertical">
-
+        android:background="@color/colorBackground">
 
         <LinearLayout
             android:id="@+id/linearLayout6"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView8"
@@ -45,9 +45,13 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
             android:background="@color/colorPrimary"
             android:elevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
             tools:ignore="UnusedAttribute">
 
             <LinearLayout
@@ -109,9 +113,10 @@
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -130,8 +135,8 @@
                         android:layout_height="50dp"
                         android:background="@drawable/round_button"
                         android:foreground="@drawable/ic_assignment_white_24dp"
-                        android:foregroundTint="@color/colorBackground"
                         android:foregroundGravity="center"
+                        android:foregroundTint="@color/colorBackground"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
@@ -168,8 +173,8 @@
                         android:layout_height="50dp"
                         android:background="@drawable/round_button"
                         android:foreground="@drawable/ic_send_white_24dp"
-                        android:foregroundTint="@color/colorBackground"
                         android:foregroundGravity="center"
+                        android:foregroundTint="@color/colorBackground"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -204,8 +209,8 @@
                         android:layout_height="50dp"
                         android:background="@drawable/round_button"
                         android:foreground="@drawable/ic_exit_to_app_white_24dp"
-                        android:foregroundTint="@color/colorBackground"
                         android:foregroundGravity="center"
+                        android:foregroundTint="@color/colorBackground"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -225,6 +230,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
