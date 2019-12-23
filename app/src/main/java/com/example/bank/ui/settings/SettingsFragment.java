@@ -1,11 +1,14 @@
 package com.example.bank.ui.settings;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
@@ -20,9 +23,9 @@ import com.example.bank.ui.home.HomeActivity;
 
 import java.util.Objects;
 
-public class SettingsFragment extends Fragment{
+public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     private Switch switchDarkMode;
-    String email;
+    private String email;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,15 +40,7 @@ public class SettingsFragment extends Fragment{
         email = Objects.requireNonNull(getActivity().getIntent().getExtras()).getString("email");
 
         switchDarkMode = root.findViewById(R.id.switchDarkMode);
-        switchDarkMode.setOnClickListener(v -> {
-            if(switchDarkMode.isChecked() == true){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                switchDarkMode.setChecked(true);
-            }else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                switchDarkMode.setChecked(false);
-            }
-        });
+        switchDarkMode.setOnCheckedChangeListener(this);
         return root;
     }
 
@@ -60,5 +55,16 @@ public class SettingsFragment extends Fragment{
             getActivity().finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            switchDarkMode.setChecked(true);
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            switchDarkMode.setChecked(false);
+        }
     }
 }
