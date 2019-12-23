@@ -1,6 +1,7 @@
 package com.example.bank.ui.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
+import com.example.bank.ui.settings.SettingsActivity;
 import com.example.bank.ui.statement.StatementActivity;
 import com.example.bank.ui.transfer.TransferActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -27,7 +29,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, HomeContract.View, NavigationView.OnNavigationItemSelectedListener {
+import static android.content.Context.MODE_PRIVATE;
+
+public class HomeFragment extends Fragment implements View.OnClickListener, HomeContract.View, NavigationView.OnNavigationItemSelectedListener{
 
     private ImageView profilePic;
     private TextView nameUser;
@@ -38,13 +42,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     private String id_user;
     private String tbalance;
 
-
     private HomeContract.Presenter presenter;
 
 
     public HomeFragment(){}
 
-    static Fragment newInstance(){
+    public static Fragment newInstance(){
         return new HomeFragment();
     }
 
@@ -128,6 +131,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
             case R.id.nav_Statement:
                 startActivityStatement();
                 break;
+            case R.id.nav_Settings:
+                startActivitySettings();
+                break;
             case R.id.menu_exit:
                 startActivityLogin();
                 break;
@@ -169,6 +175,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         statement.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         statement.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(statement);
+    }
+    private void startActivitySettings() {
+        Intent settings = new Intent(getActivity(), SettingsActivity.class);
+        settings.putExtra("email",email);
+        settings.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        settings.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(settings);
+        getActivity().finish();
     }
     private void startActivityLogin(){
         Objects.requireNonNull(getActivity()).onBackPressed();

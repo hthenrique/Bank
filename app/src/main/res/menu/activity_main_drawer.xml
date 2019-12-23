@@ -6,13 +6,17 @@
     <group android:checkableBehavior="single"
         android:id="@+id/mainGroup">
         <item
+            android:id="@+id/nav_Transfer"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/menu_transfer" />
+        <item
             android:id="@+id/nav_Statement"
             android:icon="@drawable/ic_assignment_black_24dp"
             android:title="@string/menu_statement" />
         <item
-            android:id="@+id/nav_Transfer"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/menu_transfer" />
+            android:id="@+id/nav_Settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/menu_settings" />
     </group>
 
 

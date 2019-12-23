@@ -22,5 +22,10 @@
         android:name="com.example.bank.ui.statement.StatementFragment"
         android:label="@string/menu_statement"
         tools:layout="@layout/fragment_statement" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.bank.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

@@ -3,7 +3,10 @@
     <color name="colorPrimary">#E1E1E1</color>
     <color name="colorPrimaryDark">#8D8D8D</color>
     <color name="colorAccent">#000000</color>
-    <color name="EditTextColorPrimary">#E4E4E4</color>
-    <color name="colorTranslucentBlack" />
-    <color name="colorSecondary">#424242</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="editTextColor">#E4E4E4</color>
+    <color name="colorText">#000000</color>
+    <color name="colorTint">#000000</color>
+    <color name="colorButton">#000000</color>
+    <color name="colorButtonPressed">#8D8D8D</color>
 </resources>

@@ -61,7 +61,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/EditTextColorPrimary"
+        android:background="@color/editTextColor"
         android:ems="10"
         android:hint="@string/enter_destination_email"
         android:inputType="textPersonName"
@@ -69,18 +69,30 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="right"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/EditTextColorPrimary"
+        android:background="@color/editTextColor"
         tools:ignore="RtlHardcoded">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="6dp"
+            android:text="R$"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tranferValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tranferValue" />
 
         <EditText
             android:id="@+id/tranferValue"
-            android:layout_width="0dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="right"
@@ -88,7 +100,7 @@
             android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="Autofill" />
 
@@ -112,9 +124,11 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:background="@drawable/round_button"
+        android:foregroundTint="@color/colorBackground"
         android:text="@string/send"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorBackground"
         android:textSize="14sp" />
 </LinearLayout>

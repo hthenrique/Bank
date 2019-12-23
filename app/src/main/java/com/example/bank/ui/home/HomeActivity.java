@@ -1,5 +1,6 @@
 package com.example.bank.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -30,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
 
     String emailUser;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +41,8 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        if (null == savedInstanceState){
             homeFragment = new HomeFragment();
             initFragment(HomeFragment.newInstance());
-        }
 
         if (NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))){
             MyReceiver = new MyReceiver();
@@ -79,11 +79,9 @@ public class HomeActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
     private void initFragment(Fragment homeFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.includeMain, homeFragment);
         transaction.commit();
     }
 }
