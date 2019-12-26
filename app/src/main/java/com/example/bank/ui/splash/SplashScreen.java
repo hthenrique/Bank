@@ -15,8 +15,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Handler handle = new Handler();
-        handle.postDelayed(this::showLogin,2000);
+        Handler splashThread = new Handler();
+        splashThread.postDelayed(this::showLogin,2000);
     }
 
     private void showLogin(){
