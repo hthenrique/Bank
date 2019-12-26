@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -40,6 +41,9 @@ public class SettingsActivity extends AppCompatActivity {
             broadcastIntent();
         }
 
+        SharedPreferences sharedPrefs = getSharedPreferences("darkMode", MODE_PRIVATE);
+
+
         email = this.getIntent().getExtras().getString("email");
 
         Toolbar mToolbar = findViewById(R.id.toolbarSettings);
@@ -48,16 +52,22 @@ public class SettingsActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         switchDarkMode = findViewById(R.id.switchDarkMode);
+        switchDarkMode.setChecked(sharedPrefs.getBoolean("keyDarkMode", false));
         switchDarkMode.setOnClickListener(v -> {
             if (switchDarkMode.isChecked()){
                 switchDarkMode.setChecked(true);
                 Toast.makeText(SettingsActivity.this, "Dark Mode on", Toast.LENGTH_SHORT).show();
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
+                SharedPreferences.Editor editor = getSharedPreferences("darkMode", MODE_PRIVATE).edit();
+                editor.putBoolean("keyDarkMode", true);
+                editor.commit();
             }else {
                 switchDarkMode.setChecked(false);
                 Toast.makeText(SettingsActivity.this, "Dark Mode off", Toast.LENGTH_SHORT).show();
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                SharedPreferences.Editor editor = getSharedPreferences("darkMode", MODE_PRIVATE).edit();
+                editor.putBoolean("keyDarkMode", false);
+                editor.commit();
             }
         });
     }
