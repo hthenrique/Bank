@@ -98,7 +98,11 @@ public class TransferFragment extends Fragment implements TransferContract.View,
                 .getIntent().getExtras()).getString("id");
 
         if (emailToTransfer != null){
-            mActionsListener.checkTransferStatus(idFrom, id,valueToTransfer, tbalance);
+            if (!id.equals(idFrom)){
+                mActionsListener.checkTransferStatus(idFrom, id,valueToTransfer, tbalance);
+            }else {
+                Snackbar.make(root, "Check destination address", Snackbar.LENGTH_LONG).show();
+            }
         }
     }
 

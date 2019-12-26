@@ -84,9 +84,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
 
         SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.SwipeRefresh);
         swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
+                ContextCompat.getColor(getActivity(), R.color.colorAccent),
                 ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary));
 
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.loadUserDetails(email));
         return root;

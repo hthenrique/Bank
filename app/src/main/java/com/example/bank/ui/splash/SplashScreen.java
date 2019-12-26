@@ -27,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
             }else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
-            
+
     }
 
     private void showLogin(){
