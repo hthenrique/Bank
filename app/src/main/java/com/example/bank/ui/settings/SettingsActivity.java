@@ -36,7 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        if (!NetworkUtil.getConnectivityStatus(Objects.requireNonNull(this))) {
+        if (NetworkUtil.getConnectivityStatus(this)) {
             MyReceiver = new MyReceiver();
             broadcastIntent();
         }
@@ -75,10 +75,12 @@ public class SettingsActivity extends AppCompatActivity {
     private void broadcastIntent() {
         this.registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
+    
     @Override
     public void onPause() {
         super.onPause();
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
