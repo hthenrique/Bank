@@ -2,6 +2,7 @@ package com.example.bank.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,9 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     private String passwordUser;
     private EditText password;
     private Button button;
+
+    Snackbar snackbar;
+    View snackbarView;
 
     public LoginFragment(){}
 
@@ -79,7 +83,11 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     @Override
     public void showStatus(boolean status) {
         if (!status){
-            Snackbar.make(Objects.requireNonNull(getView()), "Verify User and Password", Snackbar.LENGTH_LONG).show();
+            snackbar = Snackbar.make(getView(),
+                    "Verify User and Password", Snackbar.LENGTH_LONG);
+            snackbarView = snackbar.getView();
+            snackbarView.setBackgroundColor(Color.RED);
+            snackbar.show();
         }
         if (status){
             Intent intent = new Intent(Objects.requireNonNull(getActivity()).getBaseContext(), HomeActivity.class);

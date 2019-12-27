@@ -9,4 +9,6 @@
     <color name="colorTint">#000000</color>
     <color name="colorButton">#000000</color>
     <color name="colorButtonPressed">#8D8D8D</color>
+    <color name="colorError">#b30000</color>
+    <color name="colorSuccess">#00b300</color>
 </resources>

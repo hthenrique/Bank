@@ -75,7 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void broadcastIntent() {
         this.registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
-    
+
     @Override
     public void onPause() {
         super.onPause();

@@ -1,6 +1,7 @@
 package com.example.bank.ui.transfer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,9 @@ public class TransferFragment extends Fragment implements TransferContract.View,
     private String valueToTransfer;
     private EditText valueTo;
     private Button sendBtn;
+
+    private Snackbar snackbar;
+    private View snackbarView;
 
     public TransferFragment(){}
 
@@ -81,7 +85,11 @@ public class TransferFragment extends Fragment implements TransferContract.View,
             emailTo.getText().clear();
             valueTo.getText().clear();
             if (emailToTransfer == null){
-                Snackbar.make(root, "Check destination address", Snackbar.LENGTH_LONG).show();
+                snackbar = Snackbar.make(getView(),
+                        "Check destination address", Snackbar.LENGTH_LONG);
+                snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(Color.parseColor("#b30000"));
+                snackbar.show();
             }
             if (emailToTransfer!= null){
                 mActionsListener.loadUserDetails(emailToTransfer);
@@ -101,7 +109,11 @@ public class TransferFragment extends Fragment implements TransferContract.View,
             if (!id.equals(idFrom)){
                 mActionsListener.checkTransferStatus(idFrom, id,valueToTransfer, tbalance);
             }else {
-                Snackbar.make(root, "Check destination address", Snackbar.LENGTH_LONG).show();
+                snackbar = Snackbar.make(getView(),
+                        "Check destination address", Snackbar.LENGTH_LONG);
+                snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(Color.RED);
+                snackbar.show();
             }
         }
     }
@@ -114,9 +126,19 @@ public class TransferFragment extends Fragment implements TransferContract.View,
     @Override
     public void transferStatus(boolean status) {
         if (!status){
-            Snackbar.make(Objects.requireNonNull(getView()), "Transfer Fail", Snackbar.LENGTH_LONG).show();
+            snackbar = Snackbar.make(getView(),
+                    "Transfer Fail", Snackbar.LENGTH_LONG);
+            snackbarView = snackbar.getView();
+            snackbarView.setBackgroundColor(Color.RED);
+            snackbar.show();
         }if (status){
-            Snackbar.make(Objects.requireNonNull(getView()), "Transferred with success", Snackbar.LENGTH_LONG).show();
+            snackbar = Snackbar.make(getView(),
+                    "Transferred with success", Snackbar.LENGTH_LONG);
+            snackbarView = snackbar.getView();
+            /*TextView tv = snackbarView.findViewById(R.id.snackbar_text);
+            tv.setTextColor(Color.BLACK);*/
+            snackbarView.setBackgroundColor(Color.parseColor("#00b300"));
+            snackbar.show();
         }
     }
 
