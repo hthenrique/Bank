@@ -1,5 +1,6 @@
 package com.example.bank.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.bank.Model.GetUserModel;
 import com.example.bank.R;
+import com.example.bank.ui.login.LoginActivity;
 import com.example.bank.ui.settings.SettingsActivity;
 import com.example.bank.ui.statement.StatementActivity;
 import com.example.bank.ui.transfer.TransferActivity;
@@ -70,7 +72,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        email = Objects.requireNonNull(Objects.requireNonNull(getActivity()).getIntent().getExtras()).getString("email");
+        SharedPreferences preferences = getActivity().getSharedPreferences( "login" , Context.MODE_PRIVATE);
+        email = preferences.getString("email", "");
+
+        email = getActivity().getIntent().getExtras().getString("email");
         mbalance = root.findViewById(R.id.totalBalance);
         nameUserMain = root.findViewById(R.id.nameUserMain);
         presenter.loadUserDetails(email);
@@ -185,7 +190,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Home
         getActivity().finish();
     }
     private void startActivityLogin(){
-        Objects.requireNonNull(getActivity()).onBackPressed();
-        getActivity().finish();
+        SharedPreferences preferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("isUserLogin");
+        editor.commit();
+
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

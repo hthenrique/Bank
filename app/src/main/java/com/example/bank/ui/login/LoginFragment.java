@@ -2,6 +2,7 @@ package com.example.bank.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -90,10 +91,16 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
             snackbar.show();
         }
         if (status){
-            Intent intent = new Intent(Objects.requireNonNull(getActivity()).getBaseContext(), HomeActivity.class);
+            SharedPreferences preferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isUserLogin", true);
+            editor.putString("email", emailUser);
+            editor.putString("password", passwordUser);
+            editor.commit();
+            editor.apply();
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("email", emailUser);
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
 

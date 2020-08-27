@@ -3,12 +3,15 @@ package com.example.bank.ui.splash;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.example.bank.R;
+import com.example.bank.ui.home.HomeActivity;
 import com.example.bank.ui.login.LoginActivity;
 
 public class SplashScreen extends AppCompatActivity {
@@ -31,8 +34,18 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void showLogin(){
-        Intent start = new Intent(this, LoginActivity.class);
-        startActivity(start);
-        finish();
+        SharedPreferences preferences = getSharedPreferences( "login" , Context.MODE_PRIVATE);
+        preferences.getBoolean("isUserLogin",false);
+        if (preferences.contains("isUserLogin")){
+            String email = preferences.getString("email", "");
+            Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+            intent.putExtra("email", email);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }else {
+            Intent start = new Intent(this, LoginActivity.class);
+            startActivity(start);
+            finish();
+        }
     }
 }

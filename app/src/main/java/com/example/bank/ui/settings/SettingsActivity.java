@@ -2,6 +2,7 @@ package com.example.bank.ui.settings;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -9,6 +10,9 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -16,16 +20,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bank.Connection.MyReceiver;
 import com.example.bank.Connection.NetworkUtil;
 import com.example.bank.R;
 import com.example.bank.ui.home.HomeActivity;
+import com.example.bank.ui.login.LoginActivity;
 
 import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
     private Switch switchDarkMode;
+    ListView optionsList;
 
     private BroadcastReceiver MyReceiver = null;
     private String email;
@@ -68,6 +75,28 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences("darkMode", MODE_PRIVATE).edit();
                 editor.putBoolean("keyDarkMode", false);
                 editor.commit();
+            }
+        });
+
+        optionsList = findViewById(R.id.optionsList);
+        String[] options = new String[]{
+                "Logout"
+        };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
+        optionsList.setAdapter(adapter);
+        optionsList.setOnItemClickListener((parent, view, position, id) -> {
+
+            if (position==0){
+                SharedPreferences preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("isUserLogin");
+                editor.commit();
+
+                finish();
+
+                Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
